@@ -13,14 +13,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-%token PLUS "+" MINUS "-" TIMES "*" DIV "/"
+/* Binary operators */
+%token PLUS "+" MINUS "-" TIMES "*" DIV "/" MOD "%"
+%token EQ "=" NE "<>" LT "<" GT ">" LE "<=" GE ">="
+
+/* Keywords and Punctuation */
+%token LET IN AND MATCH TYPE IF THEN ELSE OF TRUE FALSE
+%token DAMPER "&&" DPIPE "||"
+%token LBRACE "{" RBRACE "}" LBRACK "[" RBRACK "]"
+%token LPAREN "(" RPAREN ")" QUOTE "'"
+%token LAMBDA DOT "." COMMA "," SEMI ";" COLON ":"
+%token RARR "->" LARR "<-" PIPE "|" AT "@" DCOLON "::"
+
 %token EOF
+
 %token <string> ID
 %token <int> INT
-%start <unit> start
+
+%start <unit> r
 
 %%
 
-start:
-  | ID EOF                          {()}
+r:
+  | EOF                                                         {()}
   ;

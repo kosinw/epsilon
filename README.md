@@ -242,4 +242,5 @@ Epsilon is distributed under the terms of the [GNU GPLv3 License](./LICENSE.md).
 * [Real World OCaml, 2nd ed.](https://dev.realworldocaml) by Yaron Minsky and Anil Madhavapeddy
 * [OCaml Programming: Correct + Efficient + Beautiful](https://cs3110.github.io/textbook/cover.html) by Michael R. Clarkson
 * [Programming Language Zoo](http://plzoo.andrej.com/) by Andrej Bauer and Matija Pretnar
-* [ReasonML Programming Language](https://reasonml.github.io/) by ReasonML Team
+* [The ReasonML Manual](https://reasonml.github.io/) by ReasonML Team
+* [The OCaml System Manual](https://v2.ocaml.org/manual/index.html) by Xavier Leroy and OCaml team
