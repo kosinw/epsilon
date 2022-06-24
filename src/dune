@@ -1,2 +1,12 @@
+(ocamllex lexer)
+
+(menhir
+ (modules parser))
+
 (library
- (name epsilon))
+ (name epsilon)
+ (modules lexer parser epsilon)
+ (public_name epsilon)
+ (preprocess
+  (staged_pps ppx_import ppx_deriving.show))
+ (libraries base))
