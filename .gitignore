@@ -30,3 +30,7 @@ _opam/
 
 # Mac files
 .DS_Store
+
+# Esy
+node_modules
+_esy
