@@ -1,16 +1,15 @@
-open Base
+open! Base
 
-let parse_string s =
-  let lexbuf = Lexing.from_string s in
-  let tokens = ref [] in
+module Parser = Nice_parser.Make (struct
+  type result = Syntax.module_unit
+  type token = Parser.token
 
-  let rec loop () =
-    let token = Lexer.tokenize lexbuf in
-    tokens := token :: !tokens;
+  exception ParseError = Parser.Error
 
-    match token with Parser.EOF -> () | _ -> loop ()
-  in
+  let parse = Parser.compilation_unit
 
-  loop ();
+  include Lexer
+end)
 
-  List.rev !tokens
+let parse_string, parse_file, parse_chan =
+  Parser.(parse_string, parse_file, parse_chan)

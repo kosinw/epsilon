@@ -27,6 +27,8 @@
       |> String.substr_replace_all ~pattern:"_" ~with_:""
       |> Int.of_string
   end
+
+  exception LexError of string
 }
 
 let letter = ['a'-'z' 'A'-'Z' '_']
@@ -45,10 +47,10 @@ let identifier = letter (letter | digit)*
 
 
 (* Primary entrypoint for tokenizing Epsilon programs into tokens. *)
-rule tokenize =
+rule next_token =
   parse
-  | newline                           { Lexing.new_line lexbuf; tokenize lexbuf }
-  | blank+                            { tokenize lexbuf }
+  | newline                           { Lexing.new_line lexbuf; next_token lexbuf }
+  | blank+                            { next_token lexbuf }
   | "//"                              { comment lexbuf }
 
   | "fun"                             { FUN }
@@ -99,9 +101,9 @@ rule tokenize =
 
   | identifier                        { ID (Lexing.lexeme lexbuf) }
   | eof                               { EOF }
-  | _                                 { failwith "Invalid token" } (* TODO: add proper syntax errors *)
+  | _                                 { raise @@ LexError "Invalid token" } (* TODO: add proper syntax errors *)
 
 and comment =
   parse
-  | newline | eof                     { tokenize lexbuf }
+  | newline | eof                     { next_token lexbuf }
   | _                                 { comment lexbuf }

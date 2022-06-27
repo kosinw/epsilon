@@ -1,0 +1,4 @@
+(tests
+ (names syntax)
+ (package epsilon)
+ (libraries epsilon alcotest))
