@@ -1,7 +1,21 @@
 {
-  "dependencies": { "ocaml": "4.14.0", "@opam/dune": "*" },
+  "scripts": {
+    "dev": "esy b dune build",
+    "utop": "esy b dune utop src",
+    "fmt": "esy b dune build @fmt"
+  },
+  "dependencies": {
+    "@opam/base": "v0.15.0",
+    "@opam/dune": "*",
+    "@opam/menhir": "20220210",
+    "@opam/nice_parser": "1.0.0",
+    "@opam/ppx_deriving": "5.2.1",
+    "@opam/ppx_import": "1.10.0",
+    "ocaml": "4.14.0"
+  },
   "devDependencies": {
     "@opam/ocaml-lsp-server": "1.12.2",
-    "@opam/ocamlformat": "0.22.4"
+    "@opam/ocamlformat": "0.22.4",
+    "@opam/utop": "2.9.2"
   }
 }

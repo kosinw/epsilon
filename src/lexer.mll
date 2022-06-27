@@ -22,7 +22,7 @@
   module Util = struct
     (** [to_int lexbuf] converts the next lexeme from [lexbuf] from an
       Epsilon integer constant into an OCaml integer. *)
-    let to_int lexbuf =
+    let of_int lexbuf =
       Lexing.lexeme lexbuf
       |> String.substr_replace_all ~pattern:"_" ~with_:""
       |> Int.of_string
@@ -32,19 +32,26 @@
 let letter = ['a'-'z' 'A'-'Z' '_']
 let blank = [' ' '\t']
 let newline = ('\n' | "\r\n" )
+
 let digit = ['0'-'9']
-let integer = digit (digit | '_')*
+let hex_digit = ['0'-'9' 'a'-'f' 'A'-'F']
+let octal_digit = ['0'-'7']
+
+let D = digit (digit | '_')*
+let H = "0x" hex_digit (hex_digit | '_')*
+let O = "0o" octal_digit (octal_digit | '_')*
+
 let identifier = letter (letter | digit)*
-let comment_start = "(*"
-let comment_end = "*)"
+
 
 (* Primary entrypoint for tokenizing Epsilon programs into tokens. *)
-rule r =
+rule tokenize =
   parse
-  | newline                           { Lexing.new_line lexbuf; r lexbuf }
-  | blank+                            { r lexbuf }
-  | comment_start                     { c 0 lexbuf }
+  | newline                           { Lexing.new_line lexbuf; tokenize lexbuf }
+  | blank+                            { tokenize lexbuf }
+  | "//"                              { comment lexbuf }
 
+  | "fun"                             { FUN }
   | "let"                             { LET }
   | "in"                              { IN }
   | "match"                           { MATCH }
@@ -68,7 +75,6 @@ rule r =
   | "'"                               { QUOTE }
   | "::"                              { DCOLON }
   | '@'                               { AT }
-  | '\\'                              { LAMBDA }
   | "."                               { DOT }
   | ","                               { COMMA }
   | ";"                               { SEMI }
@@ -89,14 +95,13 @@ rule r =
   | '/'                               { DIV }
   | '%'                               { MOD }
 
-  | integer                           { INT (Util.to_int lexbuf) }
+  | D | H | O                         { INT (Util.of_int lexbuf) }
+
   | identifier                        { ID (Lexing.lexeme lexbuf) }
   | eof                               { EOF }
   | _                                 { failwith "Invalid token" } (* TODO: add proper syntax errors *)
 
-and c level =
+and comment =
   parse
-  | comment_start                     { c (level + 1) lexbuf }
-  | comment_end                       { if level = 0 then r lexbuf else c (level - 1) lexbuf }
-  | eof                               { failwith "Unexpected end-of-file, unterminated comment."}
-  | _                                 { c level lexbuf }
+  | newline | eof                     { tokenize lexbuf }
+  | _                                 { comment lexbuf }

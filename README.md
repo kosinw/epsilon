@@ -36,13 +36,13 @@ This is a syntax reference to most of the language functionalities for Epsilon. 
 
 ## Comments
 
-```reasonml
+```re
 // This is a comment.
 ```
 
 ## Functions
 
-```reasonml
+```re
 // A function definition.
 let square: int -> int = fun x -> x * x
 
@@ -59,6 +59,11 @@ let factorial: int -> int = fun x -> {
   }
 }
 
+// A no argument function, useful for side effects.
+let foo: unit -> unit = fun () {
+  printfn "Hello, new world!"
+}
+
 factorial 5 // is 120
 
 // Functions are also curried by default.
@@ -72,7 +77,7 @@ add2 3 // is 5
 
 ## Literals
 
-```reasonml
+```re
 true  : bool
 false : bool
 
@@ -86,7 +91,7 @@ false : bool
 
 ## Boolean Logic
 
-```reasonml
+```re
 not true // false
 not false // true
 1 = 1 // true
@@ -96,7 +101,7 @@ not false // true
 
 ## Conditionals
 
-```reasonml
+```re
 // If expressions have to follow the same semantics as they do in OCaml
 
 if n > 0 then
@@ -109,7 +114,7 @@ else
 
 ## Lists
 
-```reasonml
+```re
 // All three of the following expressions are equivalent
 [3, 5, 7, 9]
 3 :: [5, 7, 9]
@@ -135,7 +140,7 @@ sum [3, 5, 7, 9] (* is 24 *)
 
 ## Let Expressions
 
-```reasonml
+```re
 let hello_world = {
   let hello = "Hello" in
   let world = "world" in
@@ -145,36 +150,33 @@ let hello_world = {
 
 ## Operators
 
-```reasonml
+```re
 // The forward pipeline operator is a nice way to chain together function calls.
-let nice_names: string list -> string =
-  \names -> {
-    names
-    |> List.sort
-    |> String.concat ", "
-  }
+let nice_names: string list -> string = fun names -> {
+  names
+  |> List.sort
+  |> String.concat ", "
+}
 
 // By the way, the forward pipeline operator is defined as such.
-let (|>) : 'a -> ('a -> 'b) -> 'b =
-  \x f -> f x
+let (|>) : 'a -> ('a -> 'b) -> 'b = fun x f -> f x
 
 // New infix operators can be defined using the (operator) syntax.
 // Here is the definition of a new exponentiation operator via repeated squaring.
 
 // [x ^ n] calculates [x] raised to the [n]th power. [n] must be greater than or equal to 0.
-let (^): int -> int -> int = 
-  \x n -> {
-    match n, n % 2 {
-      | 0, _ -> 1
-      | _, 0 -> (x * x) ^ (n / 2)
-      | _, _ -> x * ((x * x) ^ ((n - 1) / 2))
-    }
+let (^): int -> int -> int = fun x n -> {
+  match n, n % 2 {
+    | 0, _ -> 1
+    | _, 0 -> (x * x) ^ (n / 2)
+    | _, _ -> x * ((x * x) ^ ((n - 1) / 2))
   }
+}
 ```
 
 ## Algebraic Types
 
-```ocaml
+```re
 // Variant types or product types.
 type int_tree =
   | Leaf

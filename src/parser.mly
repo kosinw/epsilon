@@ -18,11 +18,11 @@
 %token EQ "=" NE "!=" LT "<" GT ">" LE "<=" GE ">="
 
 /* Keywords and Punctuation */
-%token LET IN AND MATCH TYPE IF THEN ELSE OF TRUE FALSE
+%token FUN LET IN AND MATCH TYPE IF THEN ELSE OF TRUE FALSE
 %token DAMPER "&&" DPIPE "||"
 %token LBRACE "{" RBRACE "}" LBRACK "[" RBRACK "]"
 %token LPAREN "(" RPAREN ")" QUOTE "'"
-%token LAMBDA DOT "." COMMA "," SEMI ";" COLON ":"
+%token DOT "." COMMA "," SEMI ";" COLON ":"
 %token RARR "->" LARR "<-" PIPE "|" AT "@" DCOLON "::"
 
 %token EOF

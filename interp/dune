@@ -1,9 +1,0 @@
-(executable
- (name interp)
- (public_name interp)
- (libraries stdio base))
-
-(env
- (dev
-  (flags
-   (:standard -w -37))))
