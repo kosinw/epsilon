@@ -1,3 +1,0 @@
-(* valid program which tests if expressions *)
-
-if (10 > 20) then 30 else 40

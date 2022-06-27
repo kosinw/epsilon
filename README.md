@@ -1,29 +1,28 @@
-# Epsilon
+<p align="center">
+ <a href="https://kosinw.com" target="_blank" rel="noopener">
+  <img src="media/banner.png" />
+ </a>
+</p>
 
-> A compiler for a small statically-typed functional programming language.
+> A compiler for a statically-typed and functional programming language.
 
-## Table of Contents
+- [Overview](#overview)
+- [Syntax](#syntax)
+  - [Comments](#comments)
+  - [Functions](#functions)
+  - [Literals](#literals)
+  - [Boolean Logic](#boolean-logic)
+  - [Conditionals](#conditionals)
+  - [Lists](#lists)
+  - [Let Expressions](#let-expressions)
+  - [Operators](#operators)
+  - [Algebraic Types](#algebraic-types)
+- [Semantics](#semantics)
+- [Features](#features)
+- [License](#license)
+- [References](#references)
 
-- [Epsilon](#epsilon)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [Syntax](#syntax)
-    - [Comments](#comments)
-    - [Functions](#functions)
-    - [Literals](#literals)
-    - [Boolean Logic](#boolean-logic)
-    - [Conditionals](#conditionals)
-    - [Lists](#lists)
-    - [Let Expressions](#let-expressions)
-    - [Operators](#operators)
-    - [Algebraic Types](#algebraic-types)
-    - [Formal Syntax](#formal-syntax)
-  - [Semantics](#semantics)
-  - [Features](#features)
-  - [License](#license)
-  - [References](#references)
-
-## Overview
+# Overview
 
 Epsilon is a compiled, small, eager statically-typed functional programming language that I wrote to learn more about programming language theory and compilers. Epsilon doesn't ever really aim to be a production-ready language but more of a grounds for experiments with programming languages.
 
@@ -32,56 +31,48 @@ Epsilon targets an LLVM backend which does handles most of the complicated optim
 Epsilon inherits its syntax and semantics from the ML family of programming languages. In particular, Epsilon syntactically looks close to [Reason](https://reasonml.github.io/) and models the runtime behavior of [OCaml](https://ocaml.org/)/[Reason](https://reasonml.github.io/).
 
 
-## Syntax
-This is a syntax reference to most of the language functionalities for Epsilon. A formal grammar in Backus-Naur form is available at the [end of this section](#formal-syntax).
+# Syntax
+This is a syntax reference to most of the language functionalities for Epsilon. If you want to see a formal grammar for Epsilon, the closest is the Menhir parser file at [src/parser.mly](src/parser.mly).
 
-### Comments
+## Comments
 
-```ocaml
-(* This is a comment. *)
-(* 
-  This is an outer comment.
-  (* We can nest comments in other comments. *)
-*)
+```reasonml
+// This is a comment.
 ```
 
-### Functions
+## Functions
 
-```ocaml
-(* Function, alongside all other variables in Epsilon, can optionally have annotations. *)
-let square: int -> int = \x -> x * x
+```reasonml
+// A function definition.
+let square: int -> int = fun x -> x * x
 
-square 12 (* is 144 *)
+square 12 // is 144
 
+// Due to Epsilon's type inference system, type annotations can be omitted in most contexts.
+let square = fun x -> x * x
 
-(* In Epsilon, all functions can be recursive by default. *)
-let factorial: int -> int = \x -> {
+// In Epsilon, all functions can be recursive by default.
+let factorial: int -> int = fun x -> {
   match x {
     | 0 -> 1
     | _ -> x * factorial (x - 1)
   }
 }
 
-(* Curly braces are optional in certain contexts. *)
-let factorial = \x ->
-  match x
-  | 0 -> 1
-  | _ -> x * factorial (x - 1)
+factorial 5 // is 120
 
-factorial 5 (* is 120 *)
+// Functions are also curried by default.
+let add: int -> int -> int = fun x y -> x + y
 
-(* Functions are also curried by default. *)
-let add: int -> int -> int = \x y -> x + y
-
-(* Partially applying the argument to the add function. *)
+// Partially applying the argument to the add function.
 let add2 = add 2
 
-add2 3 (* is 5 *)
+add2 3 // is 5
 ```
 
-### Literals
+## Literals
 
-```ocaml
+```reasonml
 true  : bool
 false : bool
 
@@ -90,23 +81,23 @@ false : bool
 
 "foo" : string
 
-()    : unit  (* The unit type is a special type which represents no value. *)
+()    : unit  // The unit type is a special type which represents no value.
 ```
 
-### Boolean Logic
+## Boolean Logic
 
-```ocaml
-not true (* false *)
-not false (* true *)
-1 = 1 (* true *)
-1 <> 1 (* false *)
-1 < 10 (* true *)
+```reasonml
+not true // false
+not false // true
+1 = 1 // true
+1 != 1 // false
+1 < 10 // true
 ```
 
-### Conditionals
+## Conditionals
 
-```ocaml
-(* If expressions have to be type checked so every if expression must have an else clause OR if expressions must be of the unit type. *)
+```reasonml
+// If expressions have to follow the same semantics as they do in OCaml
 
 if n > 0 then
   "n is a positive number"
@@ -116,16 +107,16 @@ else
   "n is a negative number"
 ```
 
-### Lists
+## Lists
 
-```ocaml
-(* All three of the following expressions are equivalent *)
+```reasonml
+// All three of the following expressions are equivalent
 [3, 5, 7, 9]
 3 :: [5, 7, 9]
 3 :: 5 :: 7 :: 9 :: []
 
-(* Summing elements in a list using tail recursion. *)
-let sum_aux = \acc lst -> {
+// Summing elements in a list using tail recursion.
+let sum_aux = fun acc lst -> {
   match lst {
     | [] -> acc
     | h :: t -> sum_aux (acc + h) t
@@ -134,17 +125,17 @@ let sum_aux = \acc lst -> {
 
 let sum = \lst -> sum_aux 0 lst
 
-sum [3, 5, 7, 9] (* is 24 *)
+sum [3, 5, 7, 9] // is 24
 
-(* Summing elements in a list using higher-order functions. *)
+// Summing elements in a list using higher-order functions.
 let sum = List.fold_right (+) 0
 
 sum [3, 5, 7, 9] (* is 24 *)
 ```
 
-### Let Expressions
+## Let Expressions
 
-```ocaml
+```reasonml
 let hello_world = {
   let hello = "Hello" in
   let world = "world" in
@@ -152,10 +143,10 @@ let hello_world = {
 }
 ```
 
-### Operators
+## Operators
 
-```ocaml
-(* The forward pipeline operator is a nice way to chain together function calls. *)
+```reasonml
+// The forward pipeline operator is a nice way to chain together function calls.
 let nice_names: string list -> string =
   \names -> {
     names
@@ -163,14 +154,14 @@ let nice_names: string list -> string =
     |> String.concat ", "
   }
 
-(* By the way, the forward pipeline operator is defined as such. *)
+// By the way, the forward pipeline operator is defined as such.
 let (|>) : 'a -> ('a -> 'b) -> 'b =
   \x f -> f x
 
-(* New infix operators can be defined using the (operator) syntax. *)
-(* Here is the definition of a new exponentiation operator via repeated squaring. *)
+// New infix operators can be defined using the (operator) syntax.
+// Here is the definition of a new exponentiation operator via repeated squaring.
 
-(* [x ^ n] calculates [x] raised to the [n]th power. [n] must be greater than or equal to 0. *)
+// [x ^ n] calculates [x] raised to the [n]th power. [n] must be greater than or equal to 0.
 let (^): int -> int -> int = 
   \x n -> {
     match n, n % 2 {
@@ -181,36 +172,29 @@ let (^): int -> int -> int =
   }
 ```
 
-### Algebraic Types
+## Algebraic Types
 
 ```ocaml
-(* Variant types or product types. *)
+// Variant types or product types.
 type int_tree =
   | Leaf
   | Internal of int_tree * int * int_tree
 
-(* Record types or sum types. *)
+// Record types or sum types.
 type point = { 
   x: int,
   y: int
  }
 ```
 
-> TODO: Imperative programming
+# Semantics
 
-### Formal Syntax
-
-```
-```
-
-## Semantics
-
-## Features
+# Features
 
 Here is a rough outline of all features planned for the compiler. 
 
 Phase 1. Subset Compiler
-- [ ] Lexical Analysis
+- [x] Lexical Analysis
 - [ ] Syntax Analysis
 - [ ] Type checking
 - [ ] Intermediate Trees
@@ -232,11 +216,11 @@ Phase 2. Language Features
 - [ ] Hygenic Macros
 - [ ] Modules
 
-## License
+# License
 
 Epsilon is distributed under the terms of the [GNU GPLv3 License](./LICENSE.md).
 
-## References
+# References
 
 * [Modern Compiler Implementation in ML](https://www.cs.princeton.edu/~appel/modern/ml/) by Andrew M. Appel
 * [Real World OCaml, 2nd ed.](https://dev.realworldocaml) by Yaron Minsky and Anil Madhavapeddy

@@ -15,7 +15,7 @@
 
 /* Binary operators */
 %token PLUS "+" MINUS "-" TIMES "*" DIV "/" MOD "%"
-%token EQ "=" NE "<>" LT "<" GT ">" LE "<=" GE ">="
+%token EQ "=" NE "!=" LT "<" GT ">" LE "<=" GE ">="
 
 /* Keywords and Punctuation */
 %token LET IN AND MATCH TYPE IF THEN ELSE OF TRUE FALSE
