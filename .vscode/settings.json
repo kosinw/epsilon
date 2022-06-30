@@ -1,6 +1,6 @@
 {
   "files.associations": {
-    "*.epsilon": "reason"
+    "*.en": "reason"
   },
   "files.exclude": {
     "**/.git": true,

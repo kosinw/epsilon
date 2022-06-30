@@ -3,219 +3,175 @@
   <img src="media/banner.png" />
  </a>
 </p>
+<h1 align="center">ε</h1>
+<p align="center">A simple compiler for a minimal, strict, and functional language.</p>
 
-> A compiler for a statically-typed and functional programming language.
+Epsilon is a compiled, small, strict, and statically-typed functional language similar to the [ML programming language](https://en.wikipedia.org/wiki/ML_(programming_language)). I am currently working on this compiler to learn more about functional programming, programming language theory and compilers. 
 
-- [Overview](#overview)
-- [Syntax](#syntax)
-  - [Comments](#comments)
-  - [Functions](#functions)
-  - [Literals](#literals)
-  - [Boolean Logic](#boolean-logic)
-  - [Conditionals](#conditionals)
-  - [Lists](#lists)
-  - [Let Expressions](#let-expressions)
-  - [Operators](#operators)
-  - [Algebraic Types](#algebraic-types)
-- [Semantics](#semantics)
-- [Features](#features)
-- [License](#license)
-- [References](#references)
-
-# Overview
-
-Epsilon is a compiled, small, eager statically-typed functional programming language that I wrote to learn more about programming language theory and compilers. Epsilon doesn't ever really aim to be a production-ready language but more of a grounds for experiments with programming languages.
+Epsilon doesn't ever really aim to be a production-ready language but more of a grounds for experiments with programming languages. Nonetheless, the goal is to compile useful programs written in Epsilon such as a [raytracer](https://raytracing.github.io/) or a [text editor](https://viewsourcecode.org/snaptoken/kilo/) into machine-executable binaries.
 
 Epsilon targets an LLVM backend which does handles most of the complicated optimziation; however, certain optimizations are also done in the compiler front end / middle end as an educational exercise in implementing compiler optimization.
 
-Epsilon inherits its syntax and semantics from the ML family of programming languages. In particular, Epsilon syntactically looks close to [Reason](https://reasonml.github.io/) and models the runtime behavior of [OCaml](https://ocaml.org/)/[Reason](https://reasonml.github.io/).
+Epsilon inherits its syntax and semantics from the ML family of programming languages. In particular, Epsilon syntactically looks close to and behaves like the [Reason](https://reasonml.github.io/) programming language.
 
+# Table of Contents
 
-# Syntax
-This is a syntax reference to most of the language functionalities for Epsilon. If you want to see a formal grammar for Epsilon, the closest is the Menhir parser file at [src/parser.mly](src/parser.mly).
+1. [Table of Contents](#table-of-contents)
+2. [Overview](#overview)
+   1. [Comments](#comments)
+   2. [Let Bindings](#let-bindings)
+   3. [Primitive Types](#primitive-types)
+   4. [Arithmetic](#arithmetic)
+   5. [Logical](#logical)
+   6. [Conditional](#conditional)
+   7. [Functions](#functions)
+   8. [Data Structures](#data-structures)
+   9. [Records](#records)
+3. [Examples](#examples)
+4. [Features](#features)
+5. [License](#license)
+6. [References](#references)
+
+# Overview
+
+This is an overview of all important language and syntactical features in Epsilon. Generally speaking, most of the syntax will look very similar to [Reason](https://reasonml.github.io/docs/en/overview); however, the syntax for certain constructs such as function application and definition look closer to [OCaml](https://v2.ocaml.org/manual/).
 
 ## Comments
 
-```re
-// This is a comment.
-```
+Epsilon features C-style comments that have proper nesting levels for multi line comments.
+
+| Feature             | Example                   |
+| :------------------ | :------------------------ |
+| Single line comment | `// this is a comment`    |
+| Multi line comment  | `/* this is a comment */` |
+
+## Let Bindings
+
+Let bindings work closer to the same way let definitions work in OCaml rather than let expressions. All let expresions are immutable and cannot be reassigned (however they can be shadowed).
+
+| Feature              | Example                      |
+| :------------------- | :--------------------------- |
+| Int value            | `let random_number = 42;`    |
+| With type annotation | `let fizz: string = "Fizz";` |
+| Function value       | `let succ = fun x -> x + 1;` |
+
+## Primitive Types
+
+Epsilon features a few primitive data types including numbers, strings, booleans, and arrays. Epsilon also has a [special unit type](https://en.wikipedia.org/wiki/Unit_type) which is important for imperative programming. Functions are also first-class values in Epsilon.
+
+| Feature  | Example                                           |
+| :------- | :------------------------------------------------ |
+| Int      | `let x: int = 12; // alternatively 0x0C or 0o14.` |
+| Float    | `let y: float = 2.45;`                            |
+| Boolean  | `let z: bool = true;`                             |
+| String   | `let a: string = "hello, world!";`                |
+| Unit     | `let u: unit = ();`                               |
+| Array    | `let l: array(int) = [\|1, 2, 3, 4, 5\|];`        |
+| Function | `let f: int -> int = fun x -> 2 * x;`             |
+
+## Arithmetic
+
+Epsilon distinguishes between two types of numbers: real numbers (represented by IEEE 754 floating point values) and integral numbers. 
+
+Epsilon also supports integer literals in both hexadecimal and octal numbers systems alongside the default decimal numbering system.
+
+Negative numbers and negation is grammatically encoded as a unary operator rather than there existing negative numeric literals (however, optimizing stages of the compiler will automatically convert these).
+
+| Feature           | Example                                      |
+| :---------------- | :------------------------------------------- |
+| Integer           | `23`, `1_000_000`, `0xdeadbeef`, `0o657`     |
+| Integer operators | `-23`, `2 * 4 + 15 / 3 - 8`, `15 % 3`        |
+| Floats            | `3.14`                                       |
+| Float operators   | `-.23.0`, `2.0 *. 4.0 +. 15.0 /. 3.0 -. 8.0` |
+
+## Logical
+
+The boolean and logical facilities in Epsilon work similar to most other programming languages.
+
+| Feature           | Example              |
+| :---------------- | :------------------- |
+| Primitives        | `true`, `false`      |
+| Comparison        | `>`, `<`, `>=`, `<=` |
+| Boolean operators | `\|\|`, `&&`, `not`  |
+| Equality          | `=`, `!=`            |
+
+## Conditional
+
+If constructs are expressions in Epsilon. Every if expression require matching types for both the then-clause and else-clause. Else-clauses can only be emitted if the type of the if-expression is `unit`.
+
+| Feature            | Example                                   |
+| :----------------- | :---------------------------------------- |
+| If expression      | `if condition { printfn "hello, world"; } |
+| If-else expression | `if condition { a; } else { b; }          |
 
 ## Functions
 
-```re
-// A function definition.
-let square: int -> int = fun x -> x * x
+Functions are first-class values in Epsilon as they usually are in other ML languages. Functions are also automatically curried and fixed-point (recursive).
 
-square 12 // is 144
+| Feature               | Example                                                         |
+| :-------------------- | :-------------------------------------------------------------- |
+| Function definition   | `let add = fun a b -> a + b;`                                   |
+| Function application  | `add 2 3; // 5`                                                 |
+| Recursive functions   | `let fact = fun n -> if n = 0 { 0 } else { n * fact (n - 1) };` |
+| Partial application   | `let add2 = add 2; add2 3; // 5`                                |
+| Forward pipe operator | ` 32 \|> (add 2) \|> (add 3);`                                  |
+| Inline typing         | `let add = fun (a: int) (b: int) -> a + b;`                     |
+| Explicit typing       | `let add: int -> int -> int = fun a b -> a + b;`                |
 
-// Due to Epsilon's type inference system, type annotations can be omitted in most contexts.
-let square = fun x -> x * x
+## Data Structures
 
-// In Epsilon, all functions can be recursive by default.
-let factorial: int -> int = fun x -> {
-  match x {
-    | 0 -> 1
-    | _ -> x * factorial (x - 1)
-  }
-}
+Epsilon supports two data structures out of the box: arrays and tuples.
 
-// A no argument function, useful for side effects.
-let foo: unit -> unit = fun () {
-  printfn "Hello, new world!"
-}
+| Feature        | Example                          |
+| :------------- | :------------------------------- |
+| Arrays         | `[\| 3, 4, 5 \|]`                |
+| Array length   | `let n = Array.length array;`    |
+| Array creation | `let arr = Array.make length 0;` |
+| Tuples         | `("hello", "world")`             |
 
-factorial 5 // is 120
+## Records
 
-// Functions are also curried by default.
-let add: int -> int -> int = fun x y -> x + y
+Records are product types which are useful for storing data in named fields. Records use nominal typing (as opposed to structural typing).
 
-// Partially applying the argument to the add function.
-let add2 = add 2
+| Feature                | Example                           |
+| :--------------------- | :-------------------------------- |
+| Record definition      | `type t = { a: int, b: bool };`   |
+| Record creation        | `let x = { a: 3, b: false };`     |
+| Record access          | `x.a;`                            |
+| Mutable record fields  | `type v = { mutable c: string };` |
+| Mutable record updates | `y.c = "bravo";`                  |
 
-add2 3 // is 5
-```
+---
 
-## Literals
+> TODO(kosi): Add sections on pattern matching, variants, modules, and imperative programming
 
-```re
-true  : bool
-false : bool
+# Examples
 
-22    : int
-3.14  : float
-
-"foo" : string
-
-()    : unit  // The unit type is a special type which represents no value.
-```
-
-## Boolean Logic
-
-```re
-not true // false
-not false // true
-1 = 1 // true
-1 != 1 // false
-1 < 10 // true
-```
-
-## Conditionals
-
-```re
-// If expressions have to follow the same semantics as they do in OCaml
-
-if n > 0 then
-  "n is a positive number"
-else if n = 0 then
-  "n is zero"
-else
-  "n is a negative number"
-```
-
-## Lists
-
-```re
-// All three of the following expressions are equivalent
-[3, 5, 7, 9]
-3 :: [5, 7, 9]
-3 :: 5 :: 7 :: 9 :: []
-
-// Summing elements in a list using tail recursion.
-let sum_aux = fun acc lst -> {
-  match lst {
-    | [] -> acc
-    | h :: t -> sum_aux (acc + h) t
-  }
-}
-
-let sum = \lst -> sum_aux 0 lst
-
-sum [3, 5, 7, 9] // is 24
-
-// Summing elements in a list using higher-order functions.
-let sum = List.fold_right (+) 0
-
-sum [3, 5, 7, 9] (* is 24 *)
-```
-
-## Let Expressions
-
-```re
-let hello_world = {
-  let hello = "Hello" in
-  let world = "world" in
-  hello ++ ", " ++ world
-}
-```
-
-## Operators
-
-```re
-// The forward pipeline operator is a nice way to chain together function calls.
-let nice_names: string list -> string = fun names -> {
-  names
-  |> List.sort
-  |> String.concat ", "
-}
-
-// By the way, the forward pipeline operator is defined as such.
-let (|>) : 'a -> ('a -> 'b) -> 'b = fun x f -> f x
-
-// New infix operators can be defined using the (operator) syntax.
-// Here is the definition of a new exponentiation operator via repeated squaring.
-
-// [x ^ n] calculates [x] raised to the [n]th power. [n] must be greater than or equal to 0.
-let (^): int -> int -> int = fun x n -> {
-  match n, n % 2 {
-    | 0, _ -> 1
-    | _, 0 -> (x * x) ^ (n / 2)
-    | _, _ -> x * ((x * x) ^ ((n - 1) / 2))
-  }
-}
-```
-
-## Algebraic Types
-
-```re
-// Variant types or product types.
-type int_tree =
-  | Leaf
-  | Internal of int_tree * int * int_tree
-
-// Record types or sum types.
-type point = { 
-  x: int,
-  y: int
- }
-```
-
-# Semantics
+Examples programs written in Epsilon can be found under the `examples/` directory in this repository.
 
 # Features
 
-Here is a rough outline of all features planned for the compiler. 
+Here is a rough outline of all features planned for the compiler and programming language.
 
-Phase 1. Subset Compiler
+Phase 1. Compiler Stages
 - [x] Lexical Analysis
-- [ ] Syntax Analysis
-- [ ] Type checking
-- [ ] Intermediate Trees
+- [x] Syntax Analysis
+- [ ] Type Checking
+- [ ] Type Inference
+- [ ] IR (K-normalization, $\alpha$-conversion, $\beta$-reduction)
+- [ ] Optimization I (Inline expansion, constant folding, etc.)
+- [ ] Closure conversion
 - [ ] Instruction Selection
-- [ ] Liveness Analysis
-- [ ] Register Allocation
-- [ ] Runtime Library
-- [ ] Dataflow Analysis
+- [ ] Register Allocation + Spilling
+- [ ] Runtime + Garbage Collection
 
-Phase 2. Language Features
+Phase 2. Language Design
 - [ ] Error diagnostics
-- [ ] Algebraic types
-- [ ] Type polymorphism
-- [ ] Toplevel system
-- [ ] First-class functions
-- [ ] Hindley-Milner type inference
+- [ ] Algebraic Data Types
 - [ ] Pattern Matching
-- [ ] Concurrency (Fibers or Actors?)
-- [ ] Hygenic Macros
+- [ ] Toplevel system
+- [ ] Function Polymorphization
+- [ ] Macros
 - [ ] Modules
 
 # License
@@ -224,9 +180,9 @@ Epsilon is distributed under the terms of the [GNU GPLv3 License](./LICENSE.md).
 
 # References
 
-* [Modern Compiler Implementation in ML](https://www.cs.princeton.edu/~appel/modern/ml/) by Andrew M. Appel
-* [Real World OCaml, 2nd ed.](https://dev.realworldocaml) by Yaron Minsky and Anil Madhavapeddy
-* [OCaml Programming: Correct + Efficient + Beautiful](https://cs3110.github.io/textbook/cover.html) by Michael R. Clarkson
-* [Programming Language Zoo](http://plzoo.andrej.com/) by Andrej Bauer and Matija Pretnar
-* [The ReasonML Manual](https://reasonml.github.io/) by ReasonML Team
-* [The OCaml System Manual](https://v2.ocaml.org/manual/index.html) by Xavier Leroy and OCaml team
+* [Modern Compiler Implementation in ML](https://www.cs.princeton.edu/~appel/modern/ml/) - Andrew M. Appel
+* [Real World OCaml, 2nd ed.](https://dev.realworldocaml) - Yaron Minsky and Anil Madhavapeddy
+* [OCaml Programming: Correct + Efficient + Beautiful](https://cs3110.github.io/textbook/cover.html) - Michael R. Clarkson
+* [MinCaml: A Simple and Efficient Compiler for a Minimal Functional Language](https://esumii.github.io/min-caml/paper.pdf) - Eijiro Sumii
+* [The ReasonML Manual](https://reasonml.github.io/)
+* [The OCaml System Manual](https://v2.ocaml.org/manual/index.html)

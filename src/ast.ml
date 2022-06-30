@@ -13,10 +13,43 @@
 
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *)
+*)
 
-type module_unit = MUnit of module_item list
-and module_item = MDefn of defn | MExpr of expr
-and expr = EInt of int
-and defn = DLet of let_binding list
-and let_binding = { name : string; expr : expr }
+type id = string
+
+type toplevel =
+  | Defn of definition
+  | Expr of expr
+
+and definition = (id * expr) list
+
+and expr =
+  | ConstantExpr of constant
+  | VarExpr of id
+  | PrefixExpr of prefix_op * expr
+  | InfixExpr of infix_op * expr * expr
+  | ConditionalExpr of expr * expr * expr option
+  | ApplicationExpr of expr * expr list
+
+and constant =
+  | Int of int
+  | Bool of bool
+  | Unit
+
+and prefix_op =
+  | Neg
+
+and infix_op =
+  | Plus
+  | Minus
+  | Times
+  | Div
+  | Mod
+  | Eq
+  | Ne
+  | Lt
+  | Gt
+  | Le
+  | Ge
+
+type t = toplevel list

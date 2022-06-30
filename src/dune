@@ -2,11 +2,12 @@
 
 (menhir
  (modules parser)
- (flags --unused-tokens))
+ (flags --explain --unused-tokens)
+ (infer true))
 
 (library
  (name epsilon)
  (public_name epsilon)
  (preprocess
   (staged_pps ppx_import ppx_deriving.show))
- (libraries menhirLib nice_parser base))
+ (libraries nice_parser base))
