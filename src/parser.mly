@@ -16,20 +16,32 @@
 *)
 
 %{
-  open Ast
+  open Syntax
 %}
+
+(*
+  TODO(kosinw): The following language features and syntax still need to be implemented:
+  - Qualified name access (e.g. fields and modules)
+  - Floating point numbers
+  - Variants (quotes)
+  - Type parameters
+  - List literals and operators
+  - Pattern matching
+  - Mutable bindings
+*)
 
 (* Binary operators *)
 %token PLUS "+" MINUS "-" TIMES "*" DIV "/" MOD "%"
 %token EQ "=" NE "!=" LT "<" GT ">" LE "<=" GE ">="
 
 (* Keywords and Punctuation *)
-%token FUN LET IN AND MATCH TYPE IF THEN ELSE OF TRUE FALSE
+%token FUN "fun" LET "let" AND "and" TYPE "type" IF "if" 
+%token THEN "then" ELSE "else" MUTABLE "mutable" 
+%token TRUE "true" FALSE "false"
 %token DAMPER "&&" DPIPE "||"
 %token LBRACE "{" RBRACE "}" LBRACK "[" RBRACK "]"
-%token LPAREN "(" RPAREN ")" QUOTE "'"
-%token DOT "." COMMA "," SEMI ";" COLON ":"
-%token RARR "->" LARR "<-" PIPE "|" AT "@" DCOLON "::"
+%token LPAREN "(" RPAREN ")"
+%token DOT "." COMMA "," SEMI ";" COLON ":" RARR "->"
 
 (* Other tokens *)
 %token <string> ID
@@ -37,84 +49,97 @@
 %token EOF
 
 (* Operator precedence and assosciativity *)
-%nonassoc     THEN
-%nonassoc     ELSE
+(* Lowest precedence *)
+%nonassoc     "then"
+%nonassoc     "else"
+%right        "||"
+%right        "&&"
+%nonassoc     "=" "!=" "<" ">" "<=" ">="
 %left         "+" "-"
-%left         "*" "/"
+%left         "*" "/" "%"
 %nonassoc     PREFIX
 %left         APP
+(* Highest precedence *)
 
-%start <Ast.t> program
+%start <Syntax.t> main
 
 %%
 
-// TODO(kosinw): Add optional ';;' after every compilation item for delimiting items.
-// This is useful in the scenario of having a toplevel where a ';;' means compile
-// everything before ';;'.
+let main :=
+  | ~ = seq_expr_body; EOF;                                         <>
 
-//
-// === TOPLEVEL ===
-//
-let program :=
-  | ~ = separated_list(";", toplevel); EOF;       <>
+let stmt :=
+  | let_clause
+  | expr
 
-let toplevel :=
-  | ~ = definition; < Defn >
-  | ~ = expr;       < Expr >
-
-//
-// === DEFINITIONS ===
-//
-let definition :=
-  | let_definition
-
-let let_definition ==
-  | LET; ~ = separated_nonempty_list(AND, let_binding); <>
-
-let let_binding :=
-  | n = ID; "="; e = expr;  { n, e }
-
-//
-// === EXPRESSIONS ===
-//
 let expr :=
-  | simple_expr 
+  | simple_expr
+  | conditional_expr
   | prefix_expr
   | infix_expr
-  | conditional_expr
   | application_expr
 
-let simple_expr :=
+let simple_expr :=  
   | constant_expr
-  | variable_expr
+  | var_expr
+  | seq_expr
   | delimited("(", expr, ")")
 
+let let_clause ==
+  | ~ = preceded("let", let_bindings);                            < LetExpr >
+
+let let_bindings :=
+  | separated_nonempty_list("and", let_binding)
+
+let let_binding :=
+  | ~ = ID; "="; ~ = expr;                                        <>
+
 let constant_expr ==
-  | x = INT;                { ConstantExpr (Int x) }
-  | TRUE;                   { ConstantExpr (Bool true) }
-  | FALSE;                  { ConstantExpr (Bool false) }
-  | "("; ")";               { ConstantExpr Unit }
+  | i = INT;                                                      { ConstantExpr (Int i) }
+  | "true";                                                       { ConstantExpr (Bool true) }
+  | "false";                                                      { ConstantExpr (Bool false) }
+  | "("; ")";                                                     { ConstantExpr (Unit) }
 
-let infix_expr ==
-  | e1 = expr; b = infix_op; e2 = expr; { InfixExpr (b, e1, e2) }
-
-let infix_op ==
-  | "+";    { Plus }
-  | "-";    { Minus }
-  | "*";    { Times }
-  | "/";    { Div }
+let var_expr ==
+  | ~ = ID;                                                       < VarExpr >
 
 let prefix_expr ==
-  | "-"; ~ = expr;  %prec PREFIX { PrefixExpr (Neg, expr) }
+  | "-"; ~ = expr; %prec PREFIX                                   { PrefixExpr (MINUS, expr) }
 
-let variable_expr ==
-  | ~ = ID; < VarExpr >
+let infix_expr ==
+  | e1 = expr; e2 = op; e3 = expr;                                { InfixExpr (e1, e2, e3) }
 
+let op ==
+  | "+";                                                          { PLUS }
+  | "-";                                                          { MINUS }
+  | "*";                                                          { TIMES }
+  | "/";                                                          { DIV }
+  | "%";                                                          { MOD }
+  | "=";                                                          { EQ }
+  | "!=";                                                         { NE }
+  | ">";                                                          { GT }
+  | "<";                                                          { LT }
+  | ">=";                                                         { GE }
+  | "<=";                                                         { LE }
+  | "&&";                                                         { AND }
+  | "||";                                                         { OR }
+  
 let conditional_expr ==
-  | IF; e1 = expr; THEN; e2 = expr; e3 = ioption(ELSE; expr); < ConditionalExpr >
+  | "if"; c = delimited("(", expr, ")"); t = simple_expr;                                 { ConditionalExpr (c, t, None) }
+  | "if"; c = delimited("(", expr, ")"); t = simple_expr; "else"; f = expr;               { ConditionalExpr (c, t, Some f) }
 
 let application_expr ==
-  | ~ = expr; ~ = arguments; %prec APP < ApplicationExpr >
+  | f = simple_expr; a = simple_expr+; %prec APP                < ApplicationExpr >
 
-let arguments :=
-  | simple_expr+
+let seq_expr ==
+  | delimited("{", seq_expr_body, "}")
+
+let seq_expr_body :=
+  | ~ = delim_list(";", stmt);                                 < SequenceExpr >
+
+(* [delim_list separator X] produces a nonempty list of productions [X] delimited by [separator].
+  The last item in the list can optionally end with [separator]. *)
+
+let delim_list(separator, X) :=
+  | x = X; separator?;                                          { [x] }
+  | x = X; separator; xs = delim_list(separator, X);            { x :: xs }

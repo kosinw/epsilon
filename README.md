@@ -3,8 +3,6 @@
   <img src="media/banner.png" />
  </a>
 </p>
-<h1 align="center">ε</h1>
-<p align="center">A simple compiler for a minimal, strict, and functional language.</p>
 
 Epsilon is a compiled, small, strict, and statically-typed functional language similar to the [ML programming language](https://en.wikipedia.org/wiki/ML_(programming_language)). I am currently working on this compiler to learn more about functional programming, programming language theory and compilers. 
 
@@ -99,10 +97,10 @@ The boolean and logical facilities in Epsilon work similar to most other program
 
 If constructs are expressions in Epsilon. Every if expression require matching types for both the then-clause and else-clause. Else-clauses can only be emitted if the type of the if-expression is `unit`.
 
-| Feature            | Example                                   |
-| :----------------- | :---------------------------------------- |
-| If expression      | `if condition { printfn "hello, world"; } |
-| If-else expression | `if condition { a; } else { b; }          |
+| Feature            | Example                                    |
+| :----------------- | :----------------------------------------- |
+| If expression      | `if condition { printfn "hello, world"; }` |
+| If-else expression | `if condition { a; } else { b; }`          |
 
 ## Functions
 
@@ -126,6 +124,8 @@ Epsilon supports two data structures out of the box: arrays and tuples.
 | :------------- | :------------------------------- |
 | Arrays         | `[\| 3, 4, 5 \|]`                |
 | Array length   | `let n = Array.length array;`    |
+| Array indexing | `arr[0];`                        |
+| Array mutation | `arr[i] = 12;`                   |
 | Array creation | `let arr = Array.make length 0;` |
 | Tuples         | `("hello", "world")`             |
 

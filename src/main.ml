@@ -1,12 +1,15 @@
 (* TODO(kosinw): Move this out into seperate module and have proper
    entry point for the compiler. *)
 include Nice_parser.Make (struct
-  type result = Ast.t
+  type result = Syntax.t
   type token = Parser.token
 
   exception ParseError = Parser.Error
 
-  let parse = Parser.program
+  let parse = Parser.main
 
   include Lexer
 end)
+
+let () =
+  pp_exceptions ()

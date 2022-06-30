@@ -45,7 +45,6 @@ let O = "0o" octal_digit (octal_digit | '_')*
 
 let identifier = letter (letter | digit)*
 
-
 (* Primary entrypoint for tokenizing Epsilon programs into tokens. *)
 rule next_token =
   parse
@@ -55,16 +54,14 @@ rule next_token =
 
   | "fun"                             { FUN }
   | "let"                             { LET }
-  | "in"                              { IN }
-  | "match"                           { MATCH }
+  | "and"                             { AND }
   | "type"                            { TYPE }
   | "if"                              { IF }
   | "then"                            { THEN }
   | "else"                            { ELSE }
-  | "of"                              { OF }
+  | "mutable"                         { MUTABLE }
   | "true"                            { TRUE }
   | "false"                           { FALSE }
-  | "and"                             { AND }
 
   | "&&"                              { DAMPER }
   | "||"                              { DPIPE }
@@ -74,16 +71,11 @@ rule next_token =
   | "]"                               { RBRACK }
   | "("                               { LPAREN }
   | ")"                               { RPAREN }
-  | "'"                               { QUOTE }
-  | "::"                              { DCOLON }
-  | '@'                               { AT }
   | "."                               { DOT }
   | ","                               { COMMA }
   | ";"                               { SEMI }
   | ":"                               { COLON }
   | "->"                              { RARR }
-  | "<-"                              { LARR }
-  | '|'                               { PIPE }
 
   | ">="                              { GE }
   | "<="                              { LE }
@@ -101,7 +93,7 @@ rule next_token =
 
   | identifier                        { ID (Lexing.lexeme lexbuf) }
   | eof                               { EOF }
-  | _                                 { raise @@ LexError "Invalid token" } (* TODO: add proper syntax errors *)
+  | _                                 { raise @@ LexError "invalid token" } (* TODO: add proper syntax errors *)
 
 and comment =
   parse
