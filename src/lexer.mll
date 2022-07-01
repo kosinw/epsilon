@@ -31,7 +31,7 @@
   exception LexError of string
 }
 
-let letter = ['a'-'z' 'A'-'Z' '_']
+let letter = ['a'-'z' 'A'-'Z']
 let blank = [' ' '\t']
 let newline = ('\n' | "\r\n" )
 
@@ -43,7 +43,7 @@ let D = digit (digit | '_')*
 let H = "0x" hex_digit (hex_digit | '_')*
 let O = "0o" octal_digit (octal_digit | '_')*
 
-let identifier = letter (letter | digit)*
+let identifier = (letter | '_') (letter | digit | '_' | "'")*
 
 (* Primary entrypoint for tokenizing Epsilon programs into tokens. *)
 rule next_token =
@@ -57,7 +57,6 @@ rule next_token =
   | "and"                             { AND }
   | "type"                            { TYPE }
   | "if"                              { IF }
-  | "then"                            { THEN }
   | "else"                            { ELSE }
   | "mutable"                         { MUTABLE }
   | "true"                            { TRUE }
@@ -88,6 +87,7 @@ rule next_token =
   | '*'                               { TIMES }
   | '/'                               { DIV }
   | '%'                               { MOD }
+  | '_'                               { USCORE }
 
   | D | H | O                         { INT (Util.of_int lexbuf) }
 

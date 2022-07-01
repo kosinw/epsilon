@@ -15,24 +15,31 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 *)
 
-type id = string
-
 type t = expr
 
+and id = string
+
+and pattern =
+  | AnyPattern
+  | VarPattern of id
+  | ConstraintPattern of pattern * type_expr 
+
 and expr =
-  | LetExpr of (id * expr) list
-  | ConstantExpr of constant
+  | LetExpr of (pattern * expr) list
   | VarExpr of id
   | PrefixExpr of op * expr
   | InfixExpr of expr * op * expr
   | ConditionalExpr of expr * expr * expr option
+  | FunExpr of pattern * expr
   | ApplicationExpr of expr * expr list
-  | SequenceExpr of expr list
+  | SequenceExpr of expr * expr
+  | IntConstExpr of int
+  | BoolConstExpr of bool
+  | UnitExpr
 
-and constant =
-  | Int of int
-  | Bool of bool
-  | Unit
+and type_expr =
+  | ArrowType of type_expr * type_expr
+  | ConstructorType of id * type_expr list
 
 and op =
   | PLUS
