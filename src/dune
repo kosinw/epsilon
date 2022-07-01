@@ -2,7 +2,7 @@
 
 (menhir
  (modules parser)
- (flags --explain)
+ (flags --explain --unused-tokens)
  (infer true))
 
 (library

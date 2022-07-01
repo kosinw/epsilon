@@ -91,6 +91,7 @@ rule next_token =
 
   | D | H | O                         { INT (Util.of_int lexbuf) }
 
+  | '"'                               { let b = Buffer.create 256 in STRING (next_string b lexbuf) }
   | identifier                        { ID (Lexing.lexeme lexbuf) }
   | eof                               { EOF }
   | _                                 { raise @@ LexError "invalid token" } (* TODO: add proper syntax errors *)
@@ -99,3 +100,9 @@ and comment =
   parse
   | newline | eof                     { next_token lexbuf }
   | _                                 { comment lexbuf }
+
+(* TODO(kosi): Add escape sequences *)
+and next_string buf =
+  parse
+  | '"'                             { Buffer.contents buf }
+  | _ as c                          { Buffer.add_char buf c; next_string buf lexbuf; }

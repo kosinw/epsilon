@@ -21,6 +21,7 @@ and id = string
 
 and pattern =
   | AnyPattern
+  | ConstPattern of const
   | VarPattern of id
   | ConstraintPattern of pattern * type_expr 
 
@@ -33,9 +34,14 @@ and expr =
   | FunExpr of pattern * expr
   | ApplicationExpr of expr * expr list
   | SequenceExpr of expr * expr
-  | IntConstExpr of int
-  | BoolConstExpr of bool
-  | UnitExpr
+  | ConstExpr of const
+  | ConstraintExpr of expr * type_expr
+
+and const = 
+  | IntConst of int
+  | StringConst of string
+  | BoolConst of bool
+  | UnitConst
 
 and type_expr =
   | ArrowType of type_expr * type_expr

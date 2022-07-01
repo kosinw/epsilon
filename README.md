@@ -97,24 +97,24 @@ The boolean and logical facilities in Epsilon work similar to most other program
 
 If constructs are expressions in Epsilon. Every if expression require matching types for both the then-clause and else-clause. Else-clauses can only be emitted if the type of the if-expression is `unit`.
 
-| Feature            | Example                                    |
-| :----------------- | :----------------------------------------- |
-| If expression      | `if condition { printfn "hello, world"; }` |
-| If-else expression | `if condition { a; } else { b; }`          |
+| Feature            | Example                                      |
+| :----------------- | :------------------------------------------- |
+| If expression      | `if (condition) { printfn "hello, world"; }` |
+| If-else expression | `if (condition) { a; } else { b; }`          |
 
 ## Functions
 
 Functions are first-class values in Epsilon as they usually are in other ML languages. Functions are also automatically curried and fixed-point (recursive).
 
-| Feature               | Example                                                         |
-| :-------------------- | :-------------------------------------------------------------- |
-| Function definition   | `let add = fun a b -> a + b;`                                   |
-| Function application  | `add 2 3; // 5`                                                 |
-| Recursive functions   | `let fact = fun n -> if n = 0 { 0 } else { n * fact (n - 1) };` |
-| Partial application   | `let add2 = add 2; add2 3; // 5`                                |
-| Forward pipe operator | ` 32 \|> (add 2) \|> (add 3);`                                  |
-| Inline typing         | `let add = fun (a: int) (b: int) -> a + b;`                     |
-| Explicit typing       | `let add: int -> int -> int = fun a b -> a + b;`                |
+| Feature               | Example                                                     |
+| :-------------------- | :---------------------------------------------------------- |
+| Function definition   | `let add = fun a b -> a + b;`                               |
+| Function application  | `add 2 3; // 5`                                             |
+| Recursive functions   | `let fact = fun n -> if (n = 0) 0 else (n * fact (n - 1));` |
+| Partial application   | `let add2 = add 2; add2 3; // 5`                            |
+| Forward pipe operator | ` 32 \|> (add 2) \|> (add 3);`                              |
+| Inline typing         | `let add = fun (a: int) (b: int) -> a + b;`                 |
+| Explicit typing       | `let add: int -> int -> int = fun a b -> a + b;`            |
 
 ## Data Structures
 
@@ -158,7 +158,7 @@ Phase 1. Compiler Stages
 - [x] Syntax Analysis
 - [ ] Type Checking
 - [ ] Type Inference
-- [ ] IR (K-normalization, $\alpha$-conversion, $\beta$-reduction)
+- [ ] IR (K-normalization, $\alpha$ -conversion, $\beta$ -reduction)
 - [ ] Optimization I (Inline expansion, constant folding, etc.)
 - [ ] Closure conversion
 - [ ] Instruction Selection

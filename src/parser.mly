@@ -28,6 +28,7 @@
   - List literals and operators
   - Pattern matching
   - Mutable bindings
+  - Remove hard-coding of Array.make
 *)
 
 (* Binary operators *)
@@ -45,6 +46,7 @@
 
 (* Other tokens *)
 %token <string> ID
+%token <string> STRING
 %token <int> INT
 %token EOF
 
@@ -76,8 +78,18 @@ let constraint_pattern :=
 
 let pattern :=
   | "_";                                                         { AnyPattern }
+  | ~ = const;                                                   < ConstPattern >
   | ~ = ID;                                                      < VarPattern >
   | delimited("(", constraint_pattern, ")")
+
+(* CONSTANTS *)
+let const :=
+  | i = INT;                                                      { IntConst i }
+  | s = STRING;                                                   { StringConst s }
+  | "true";                                                       { BoolConst true }
+  | "false";                                                      { BoolConst false }
+  | "("; ")";                                                     { UnitConst }
+
 
 (* TYPE EXPRESSIONS *)
 let type_expr :=
@@ -108,6 +120,7 @@ let expr :=
   | infix_expr
   | fun_expr
   | application_expr
+  | constraint_expr
 
 let simple_expr :=  
   | constant_expr
@@ -125,10 +138,7 @@ let let_binding :=
   | p = complex_pattern; "="; e = expr;                           { p, e }
 
 let constant_expr ==
-  | i = INT;                                                      { IntConstExpr i }
-  | "true";                                                       { BoolConstExpr true }
-  | "false";                                                      { BoolConstExpr false }
-  | "("; ")";                                                     { UnitExpr }
+  | ~ = const;                                                    < ConstExpr >
 
 let var_expr ==
   | ~ = ID;                                                       < VarExpr >
@@ -168,6 +178,9 @@ let fun_expr_body :=
 
 let application_expr ==
   | f = simple_expr; a = simple_expr+;                            < ApplicationExpr >
+
+let constraint_expr ==
+  | "("; e = expr; ":"; t = type_expr; ")";                       { ConstraintExpr (e, t)  }
 
 let seq_expr ==
   | delimited("{", seq_expr_body, "}")
