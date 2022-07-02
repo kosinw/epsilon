@@ -1,18 +1,18 @@
 let fizzbuzz = fun n -> {
   let aux = fun x -> {
-    if x + 1 != n {
+    if (x + 1 != n) {
       let divisible_by_3 = n % 3 = 0;
       let divisible_by_5 = n % 5 = 0;
 
-      if divisible_by_3 {
+      if (divisible_by_3) {
         printf "Fizz";
       }
 
-      if divisible_by_5 {
+      if (divisible_by_5) {
         printf "Buzz";
       }
 
-      if not (divisible_by_3 && divisble_by_5) {
+      if (not (divisible_by_3 && divisble_by_5)) {
         print_int x;
       }
 

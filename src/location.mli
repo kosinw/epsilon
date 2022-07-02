@@ -23,6 +23,9 @@ type span
 type 'a t
 (** A node tagged with location data. *)
 
+val show_spans: bool ref
+(** Flag for whether or not the pretty printer should display spans as well. *)
+
 val make_span : Lexing.position -> Lexing.position -> span
 (** [make_span start finish] creates a new span from two lexer positions.  *)
 

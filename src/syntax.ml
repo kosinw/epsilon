@@ -19,8 +19,6 @@
 
 type t = Program of expr [@@unboxed] [@@deriving show]
 
-and id = string
-
 and pattern' =
   | AnyPattern  (** The pattern [_]. *)
   | ConstPattern of const
@@ -34,8 +32,8 @@ and pattern = pattern' Location.t
 and expr =
   | LetExpr of (pattern * expr) list
   | VarExpr of id
-  | PrefixExpr of op * expr
-  | InfixExpr of expr * op * expr
+  | PrefixExpr of operator * expr
+  | InfixExpr of expr * operator * expr
   | ConditionalExpr of expr * expr * expr option
   | FunExpr of pattern * expr
   | ApplicationExpr of expr * expr list
@@ -51,11 +49,13 @@ and const' =
 
 and const = const' Location.t
 
-and type_expr =
+and type_expr' =
   | ArrowType of type_expr * type_expr
   | ConstructorType of id * type_expr list
 
-and op =
+and type_expr = type_expr' Location.t
+
+and operator =
   | PLUS
   | MINUS
   | TIMES
@@ -69,3 +69,5 @@ and op =
   | LE
   | AND
   | OR
+
+and id = string Location.t

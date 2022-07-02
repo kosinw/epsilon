@@ -88,7 +88,7 @@ let pattern ==
 let pattern_ :=
   | "_";                                                         { AnyPattern }
   | ~ = const;                                                   < ConstPattern >
-  | ~ = ID;                                                      < VarPattern >
+  | ~ = mark(ID);                                                < VarPattern >
 
 (* CONSTANTS *)
 let const ==
@@ -107,15 +107,21 @@ let type_expr :=
   | primitive_type_expr
   | arrow_type_expr
 
-let primitive_type_expr :=
-  | x = ID;                                                       { ConstructorType (x, []) }
-  | x = ID; l = delimited("(", type_argument_list, ")");          { ConstructorType (x, l) }
+let primitive_type_expr ==
+  | mark(primitive_type_expr_)
   | delimited("(", type_expr, ")")
 
+let primitive_type_expr_ :=
+  | x = mark(ID);                                                 { ConstructorType (x, []) }
+  | x = mark(ID); l = delimited("(", type_argument_list, ")");    { ConstructorType (x, l) }
+ 
 let type_argument_list :=
   | separated_nonempty_list(",", type_expr)
 
-let arrow_type_expr :=
+let arrow_type_expr ==
+  | mark(arrow_type_expr_)
+
+let arrow_type_expr_ :=
   | a = primitive_type_expr; "->"; b = primitive_type_expr;       { ArrowType (a, b) } 
   | x = primitive_type_expr; "->"; xs = arrow_type_expr;          { ArrowType (x, xs) }
 
@@ -152,7 +158,7 @@ let constant_expr ==
   | ~ = const;                                                    < ConstExpr >
 
 let var_expr ==
-  | ~ = ID;                                                       < VarExpr >
+  | ~ = mark(ID);                                                 < VarExpr >
 
 let prefix_expr ==
   | "-"; ~ = expr; %prec PREFIX                                   { PrefixExpr (MINUS, expr) }

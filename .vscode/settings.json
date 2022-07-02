@@ -1,7 +1,4 @@
 {
-  "files.associations": {
-    "*.en": "reason"
-  },
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
