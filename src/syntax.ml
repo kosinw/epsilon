@@ -15,15 +15,21 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 *)
 
-type t = expr
+(** Abstract syntax tree produced by parser. *)
+
+type t = Program of expr [@@unboxed] [@@deriving show]
 
 and id = string
 
-and pattern =
-  | AnyPattern
+and pattern' =
+  | AnyPattern  (** The pattern [_]. *)
   | ConstPattern of const
-  | VarPattern of id
-  | ConstraintPattern of pattern * type_expr 
+      (** Patterns that match constants such as [1], ['a'], [true]. *)
+  | VarPattern of id  (** A variable pattern like [x]. *)
+  | ConstraintPattern of pattern * type_expr
+      (** A pattern with a type annotation [(P : T)]. *)
+
+and pattern = pattern' Location.t
 
 and expr =
   | LetExpr of (pattern * expr) list
@@ -37,11 +43,13 @@ and expr =
   | ConstExpr of const
   | ConstraintExpr of expr * type_expr
 
-and const = 
+and const' =
   | IntConst of int
   | StringConst of string
   | BoolConst of bool
   | UnitConst
+
+and const = const' Location.t
 
 and type_expr =
   | ArrowType of type_expr * type_expr

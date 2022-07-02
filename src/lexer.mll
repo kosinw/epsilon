@@ -16,16 +16,15 @@
  *)
 
 {
-  open Base
   open Parser
+  module L = MenhirLib.LexerUtil
 
   module Util = struct
     (** [to_int lexbuf] converts the next lexeme from [lexbuf] from an
       Epsilon integer constant into an OCaml integer. *)
     let of_int lexbuf =
       Lexing.lexeme lexbuf
-      |> String.substr_replace_all ~pattern:"_" ~with_:""
-      |> Int.of_string
+      |> Stdlib.int_of_string
   end
 
   exception LexError of string
@@ -43,12 +42,14 @@ let D = digit (digit | '_')*
 let H = "0x" hex_digit (hex_digit | '_')*
 let O = "0o" octal_digit (octal_digit | '_')*
 
-let identifier = (letter | '_') (letter | digit | '_' | "'")*
+(* TODO(kosinw): Adding hack to lexer to include dots in identifiers so that
+  certain functions like Array.length and Array.make will work *)
+let identifier = (letter | '_') (letter | digit | '_' | "'" | '.')*
 
 (* Primary entrypoint for tokenizing Epsilon programs into tokens. *)
 rule next_token =
   parse
-  | newline                           { Lexing.new_line lexbuf; next_token lexbuf }
+  | newline                           { L.newline lexbuf; next_token lexbuf }
   | blank+                            { next_token lexbuf }
   | "//"                              { comment lexbuf }
 
@@ -105,4 +106,5 @@ and comment =
 and next_string buf =
   parse
   | '"'                             { Buffer.contents buf }
+  | eof                             { raise @@ LexError "invalid eof" }
   | _ as c                          { Buffer.add_char buf c; next_string buf lexbuf; }

@@ -40,20 +40,18 @@ build: [
   ["dune" "build" "-p" name "-j" jobs]
 ]
 
-description: """
-A promise is a value that may become determined in the future.
+description: "A promise is a value that may become determined in the future.
 
 Lwt provides typed, composable promises. Promises that are resolved by I/O are
 resolved by Lwt in parallel.
 
 Meanwhile, OCaml code, including code creating and waiting on promises, runs in
 a single thread by default. This reduces the need for locks or other
-synchronization primitives. Code can be run in parallel on an opt-in basis.
-"""
+synchronization primitives. Code can be run in parallel on an opt-in basis."
 url {
-  src: "https://github.com/ocsigen/lwt/archive/5.6.0.tar.gz"
+  src: "https://github.com/ocsigen/lwt/archive/5.6.1.tar.gz"
   checksum: [
-    "md5=e63979ee40a80d5b9e9e5545f33323b4"
-    "sha512=d616389bc9e0da11f25843ab7541ac2d40c9543700a89455f14115b339bbe58cef2b8acf0ae97fd54e15a4cb93149cfe1ebfda301aa93933045f76b7d9344160"
+    "md5=279024789a0ec84a9d97d98bad847f97"
+    "sha512=698875bd3bfcd5baa47eb48e412f442d289f9972421321541860ebe110b9af1949c3fbc253768495726ec547fe4ba25483cd97ff39bc668496fba95b2ed9edd8"
   ]
 }

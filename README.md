@@ -158,7 +158,7 @@ Phase 1. Compiler Stages
 - [x] Syntax Analysis
 - [ ] Type Checking
 - [ ] Type Inference
-- [ ] IR (K-normalization, $\alpha$ -conversion, $\beta$ -reduction)
+- [ ] IR (K-normalization form, alpha-conversion, beta-reduction)
 - [ ] Optimization I (Inline expansion, constant folding, etc.)
 - [ ] Closure conversion
 - [ ] Instruction Selection
@@ -184,5 +184,3 @@ Epsilon is distributed under the terms of the [GNU GPLv3 License](./LICENSE.md).
 * [Real World OCaml, 2nd ed.](https://dev.realworldocaml) - Yaron Minsky and Anil Madhavapeddy
 * [OCaml Programming: Correct + Efficient + Beautiful](https://cs3110.github.io/textbook/cover.html) - Michael R. Clarkson
 * [MinCaml: A Simple and Efficient Compiler for a Minimal Functional Language](https://esumii.github.io/min-caml/paper.pdf) - Eijiro Sumii
-* [The ReasonML Manual](https://reasonml.github.io/)
-* [The OCaml System Manual](https://v2.ocaml.org/manual/index.html)

@@ -22,8 +22,9 @@
 (*
   TODO(kosinw): The following language features and syntax still need to be implemented:
   - Qualified name access (e.g. fields and modules)
+  - Type definitions
   - Floating point numbers
-  - Variants (quotes)
+  - Variants
   - Type parameters (polymorphism)
   - List literals and operators
   - Pattern matching
@@ -66,24 +67,34 @@
 
 %%
 
-let main := terminated(seq_expr_body, EOF)
+let main := 
+  | ~ = terminated(seq_expr_body, EOF);                           < Program >
 
 (* PATTERNS *)
 let complex_pattern :=
   | pattern
   | constraint_pattern
 
-let constraint_pattern :=
+let constraint_pattern ==
+  | mark(constraint_pattern_)
+
+let constraint_pattern_ :=
   | ~ = pattern; ":"; ~ = type_expr;                             < ConstraintPattern >
 
-let pattern :=
+let pattern ==
+  | mark(pattern_)
+  | delimited("(", complex_pattern, ")")
+
+let pattern_ :=
   | "_";                                                         { AnyPattern }
   | ~ = const;                                                   < ConstPattern >
   | ~ = ID;                                                      < VarPattern >
-  | delimited("(", constraint_pattern, ")")
 
 (* CONSTANTS *)
-let const :=
+let const ==
+  | mark(const_)
+
+let const_ :=
   | i = INT;                                                      { IntConst i }
   | s = STRING;                                                   { StringConst s }
   | "true";                                                       { BoolConst true }
@@ -189,8 +200,7 @@ let seq_expr_body :=
   | x = stmt; ";"?;                                               { x }
   | x = stmt; ";"; xs = seq_expr_body;                            { SequenceExpr (x, xs) }
 
-(* [delim_list separator X] produces a nonempty list of productions [X] delimited by [separator].
-  The last item in the list can optionally end with [separator]. *)
-let delim_list(separator, X) :=
-  | x = X; separator?;                                            { [x] }
-  | x = X; separator; xs = delim_list(separator, X);              { x :: xs }
+let mark(X) :=
+  | x = X;                                                        { Location.mk $sloc x }
+(** [mark X] transforms the semantic action of the production X to produce a type of
+  ['a Location.t] where ['a] is the type of the semantic action of X. *)

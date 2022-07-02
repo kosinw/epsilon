@@ -11,5 +11,6 @@ include Nice_parser.Make (struct
   include Lexer
 end)
 
-let () =
-  pp_exceptions ()
+let ( >> ) f g x = g (f x)
+let pp = parse_string >> (Syntax.show >> print_endline)
+let () = pp_exceptions ()

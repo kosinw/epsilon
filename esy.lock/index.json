@@ -1,5 +1,5 @@
 {
-  "checksum": "e552eb52b942fdf48a3f13410a730057",
+  "checksum": "325045353b9ebd7d24913ce12cee6f3e",
   "root": "epsilon@link-dev:./package.json",
   "node": {
     "ocaml@4.14.0@d41d8cd9": {
@@ -27,12 +27,11 @@
       },
       "overrides": [],
       "dependencies": [
-        "ocaml@4.14.0@d41d8cd9", "@opam/stdio@opam:v0.15.0@aeefdf96",
-        "@opam/ppx_import@opam:1.10.0@e578d5ae",
+        "ocaml@4.14.0@d41d8cd9", "@opam/ppx_import@opam:1.10.0@e578d5ae",
         "@opam/ppx_deriving@opam:5.2.1@089e5dd3",
         "@opam/nice_parser@opam:1.0.0@6309e98e",
         "@opam/menhir@opam:20220210@ff87a93b",
-        "@opam/dune@opam:3.3.1@37a83374", "@opam/base@opam:v0.15.0@85d52a98"
+        "@opam/dune@opam:3.3.1@37a83374"
       ],
       "devDependencies": [
         "@opam/utop@opam:2.9.2@b0253eb0",
@@ -228,8 +227,8 @@
         "ocaml@4.14.0@d41d8cd9", "@opam/react@opam:1.2.2@e0f4480e",
         "@opam/ocamlfind@opam:1.9.5@c4562efc",
         "@opam/lwt_react@opam:1.2.0@4253a145",
-        "@opam/lwt@opam:5.6.0@4f1604a8",
-        "@opam/lambda-term@opam:3.2.0@43a9b88a",
+        "@opam/lwt@opam:5.6.1@2a9902ab",
+        "@opam/lambda-term@opam:3.2.0@5fedaa67",
         "@opam/dune@opam:3.3.1@37a83374", "@opam/cppo@opam:1.6.9@db929a12",
         "@opam/camomile@opam:1.0.2@42017332",
         "@opam/base-unix@opam:base@87d0b2eb",
@@ -240,8 +239,8 @@
         "ocaml@4.14.0@d41d8cd9", "@opam/react@opam:1.2.2@e0f4480e",
         "@opam/ocamlfind@opam:1.9.5@c4562efc",
         "@opam/lwt_react@opam:1.2.0@4253a145",
-        "@opam/lwt@opam:5.6.0@4f1604a8",
-        "@opam/lambda-term@opam:3.2.0@43a9b88a",
+        "@opam/lwt@opam:5.6.1@2a9902ab",
+        "@opam/lambda-term@opam:3.2.0@5fedaa67",
         "@opam/dune@opam:3.3.1@37a83374",
         "@opam/camomile@opam:1.0.2@42017332",
         "@opam/base-unix@opam:base@87d0b2eb",
@@ -1273,12 +1272,12 @@
       "overrides": [],
       "dependencies": [
         "ocaml@4.14.0@d41d8cd9", "@opam/react@opam:1.2.2@e0f4480e",
-        "@opam/lwt@opam:5.6.0@4f1604a8", "@opam/dune@opam:3.3.1@37a83374",
+        "@opam/lwt@opam:5.6.1@2a9902ab", "@opam/dune@opam:3.3.1@37a83374",
         "@opam/cppo@opam:1.6.9@db929a12", "@esy-ocaml/substs@0.0.1@d41d8cd9"
       ],
       "devDependencies": [
         "ocaml@4.14.0@d41d8cd9", "@opam/react@opam:1.2.2@e0f4480e",
-        "@opam/lwt@opam:5.6.0@4f1604a8", "@opam/dune@opam:3.3.1@37a83374"
+        "@opam/lwt@opam:5.6.1@2a9902ab", "@opam/dune@opam:3.3.1@37a83374"
       ]
     },
     "@opam/lwt_log@opam:1.1.1@fc97477f": {
@@ -1299,27 +1298,27 @@
       },
       "overrides": [],
       "dependencies": [
-        "@opam/lwt@opam:5.6.0@4f1604a8", "@opam/dune@opam:3.3.1@37a83374",
+        "@opam/lwt@opam:5.6.1@2a9902ab", "@opam/dune@opam:3.3.1@37a83374",
         "@esy-ocaml/substs@0.0.1@d41d8cd9"
       ],
       "devDependencies": [
-        "@opam/lwt@opam:5.6.0@4f1604a8", "@opam/dune@opam:3.3.1@37a83374"
+        "@opam/lwt@opam:5.6.1@2a9902ab", "@opam/dune@opam:3.3.1@37a83374"
       ]
     },
-    "@opam/lwt@opam:5.6.0@4f1604a8": {
-      "id": "@opam/lwt@opam:5.6.0@4f1604a8",
+    "@opam/lwt@opam:5.6.1@2a9902ab": {
+      "id": "@opam/lwt@opam:5.6.1@2a9902ab",
       "name": "@opam/lwt",
-      "version": "opam:5.6.0",
+      "version": "opam:5.6.1",
       "source": {
         "type": "install",
         "source": [
-          "archive:https://opam.ocaml.org/cache/md5/e6/e63979ee40a80d5b9e9e5545f33323b4#md5:e63979ee40a80d5b9e9e5545f33323b4",
-          "archive:https://github.com/ocsigen/lwt/archive/5.6.0.tar.gz#md5:e63979ee40a80d5b9e9e5545f33323b4"
+          "archive:https://opam.ocaml.org/cache/md5/27/279024789a0ec84a9d97d98bad847f97#md5:279024789a0ec84a9d97d98bad847f97",
+          "archive:https://github.com/ocsigen/lwt/archive/5.6.1.tar.gz#md5:279024789a0ec84a9d97d98bad847f97"
         ],
         "opam": {
           "name": "lwt",
-          "version": "5.6.0",
-          "path": "esy.lock/opam/lwt.5.6.0"
+          "version": "5.6.1",
+          "path": "esy.lock/opam/lwt.5.6.1"
         }
       },
       "overrides": [],
@@ -1337,8 +1336,8 @@
         "@opam/dune@opam:3.3.1@37a83374"
       ]
     },
-    "@opam/lambda-term@opam:3.2.0@43a9b88a": {
-      "id": "@opam/lambda-term@opam:3.2.0@43a9b88a",
+    "@opam/lambda-term@opam:3.2.0@5fedaa67": {
+      "id": "@opam/lambda-term@opam:3.2.0@5fedaa67",
       "name": "@opam/lambda-term",
       "version": "opam:3.2.0",
       "source": {
@@ -1359,7 +1358,7 @@
         "@opam/react@opam:1.2.2@e0f4480e",
         "@opam/mew_vi@opam:0.5.0@cf66c299",
         "@opam/lwt_react@opam:1.2.0@4253a145",
-        "@opam/lwt_log@opam:1.1.1@fc97477f", "@opam/lwt@opam:5.6.0@4f1604a8",
+        "@opam/lwt_log@opam:1.1.1@fc97477f", "@opam/lwt@opam:5.6.1@2a9902ab",
         "@opam/dune@opam:3.3.1@37a83374",
         "@opam/camomile@opam:1.0.2@42017332",
         "@esy-ocaml/substs@0.0.1@d41d8cd9"
@@ -1369,7 +1368,7 @@
         "@opam/react@opam:1.2.2@e0f4480e",
         "@opam/mew_vi@opam:0.5.0@cf66c299",
         "@opam/lwt_react@opam:1.2.0@4253a145",
-        "@opam/lwt_log@opam:1.1.1@fc97477f", "@opam/lwt@opam:5.6.0@4f1604a8",
+        "@opam/lwt_log@opam:1.1.1@fc97477f", "@opam/lwt@opam:5.6.1@2a9902ab",
         "@opam/dune@opam:3.3.1@37a83374",
         "@opam/camomile@opam:1.0.2@42017332"
       ]
