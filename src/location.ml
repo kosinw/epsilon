@@ -15,24 +15,24 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *)
 
-let show_spans = ref false
+let show_spans = ref true
 
 let pp_positions ppf (p : Lexing.position * Lexing.position) =
   let ln (pos : Lexing.position) = pos.pos_lnum in
   let col (pos : Lexing.position) = pos.pos_cnum - pos.pos_bol in
   let s, f = p in
-  Format.fprintf ppf "@[<hov>:ln %i :col (%i %i)@]" (ln s) (col s) (col f)
+  Format.fprintf ppf "@,@[<hov 2>{from = (%i, %i),@ to = (%i, %i)}@]" (ln s)
+    (col s) (ln f) (col f)
 
 type span =
   | Somewhere of Lexing.position * Lexing.position
-      [@printer fun ppf -> fprintf ppf "(%a@)" pp_positions]
+      [@printer fun ppf -> fprintf ppf "%a" pp_positions]
       (** A value representing a span between two positions. *)
-  | Nowhere [@printer fun ppf _ -> fprintf ppf "(nowhere@)"]
+  | Nowhere [@printer fun ppf _ -> fprintf ppf "nowhere"]
       (** A value representing the absence of a span. *)
 [@@deriving show]
 
 type 'a t = { data : 'a; span : span }
-(* [@@deriving show { with_path = false }] *)
 
 let make_span start finish = Somewhere (start, finish)
 
@@ -41,11 +41,10 @@ let span_of_lexbuf lexbuf =
 
 let locate ?(s = Nowhere) x = { data = x; span = s }
 let mk (startpos, endpos) x = locate ~s:(make_span startpos endpos) x
+
 let pp fmt1 ppf x =
-  if !show_spans then
-    Format.fprintf ppf "%a %a" fmt1 x.data pp_span x.span
-  else
-    Format.fprintf ppf "%a" fmt1 x.data
+  if !show_spans then Format.fprintf ppf "%a %a" fmt1 x.data pp_span x.span
+  else Format.fprintf ppf "%a" fmt1 x.data
 
 let show fmt1 x =
   let ppf = Format.str_formatter in

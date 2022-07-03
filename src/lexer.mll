@@ -38,9 +38,9 @@ let digit = ['0'-'9']
 let hex_digit = ['0'-'9' 'a'-'f' 'A'-'F']
 let octal_digit = ['0'-'7']
 
-let D = digit (digit | '_')*
-let H = "0x" hex_digit (hex_digit | '_')*
-let O = "0o" octal_digit (octal_digit | '_')*
+let dec = digit (digit | '_')*
+let hex = "0x" hex_digit (hex_digit | '_')*
+let oct = "0o" octal_digit (octal_digit | '_')*
 
 (* TODO(kosinw): Adding hack to lexer to include dots in identifiers so that
   certain functions like Array.length and Array.make will work *)
@@ -52,7 +52,6 @@ rule next_token =
   | newline                           { L.newline lexbuf; next_token lexbuf }
   | blank+                            { next_token lexbuf }
   | "//"                              { comment lexbuf }
-
   | "fun"                             { FUN }
   | "let"                             { LET }
   | "and"                             { AND }
@@ -62,7 +61,6 @@ rule next_token =
   | "mutable"                         { MUTABLE }
   | "true"                            { TRUE }
   | "false"                           { FALSE }
-
   | "&&"                              { DAMPER }
   | "||"                              { DPIPE }
   | "{"                               { LBRACE }
@@ -76,7 +74,6 @@ rule next_token =
   | ";"                               { SEMI }
   | ":"                               { COLON }
   | "->"                              { RARR }
-
   | ">="                              { GE }
   | "<="                              { LE }
   | ">"                               { GT }
@@ -89,10 +86,8 @@ rule next_token =
   | '/'                               { DIV }
   | '%'                               { MOD }
   | '_'                               { USCORE }
-
-  | D | H | O                         { INT (Util.of_int lexbuf) }
-
-  | '"'                               { let b = Buffer.create 256 in STRING (next_string b lexbuf) }
+  | dec | hex | oct                   { INT (Util.of_int lexbuf) }
+  | '"'                               { let b = Buffer.create 256 in STRING (next_string lexbuf.lex_start_p b lexbuf) }
   | identifier                        { ID (Lexing.lexeme lexbuf) }
   | eof                               { EOF }
   | _                                 { raise @@ LexError "invalid token" } (* TODO: add proper syntax errors *)
@@ -103,8 +98,8 @@ and comment =
   | _                                 { comment lexbuf }
 
 (* TODO(kosi): Add escape sequences *)
-and next_string buf =
+and next_string start buf =
   parse
-  | '"'                             { Buffer.contents buf }
+  | '"'                             { lexbuf.lex_start_p <- start; Buffer.contents buf }
   | eof                             { raise @@ LexError "invalid eof" }
-  | _ as c                          { Buffer.add_char buf c; next_string buf lexbuf; }
+  | _ as c                          { Buffer.add_char buf c; next_string start buf lexbuf; }
