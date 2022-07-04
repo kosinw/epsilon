@@ -5,7 +5,6 @@
     "@opam/nice_parser": "1.0.0",
     "@opam/ppx_deriving": "5.2.1",
     "@opam/ppx_expect": "v0.15.0",
-    "@opam/ppx_import": "1.10.0",
     "ocaml": "4.14.0"
   },
   "devDependencies": {

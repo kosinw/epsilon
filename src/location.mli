@@ -41,5 +41,4 @@ val mk : Lexing.position * Lexing.position -> 'a -> 'a t
     and a node [x]. *)
 
 val pp : (Format.formatter -> 'a -> unit) -> Format.formatter -> 'a t -> unit
-
-val show: (Format.formatter -> 'a -> unit) -> 'a t -> string
+val show : (Format.formatter -> 'a -> unit) -> 'a t -> string

@@ -1,5 +1,5 @@
 {
-  "checksum": "cf41e7b622a486e749534177aa9e26a9",
+  "checksum": "f039f0b0982871a7483201ceb1299581",
   "root": "epsilon@link-dev:./package.json",
   "node": {
     "ocaml@4.14.0@d41d8cd9": {
@@ -27,8 +27,7 @@
       },
       "overrides": [],
       "dependencies": [
-        "ocaml@4.14.0@d41d8cd9", "@opam/ppx_import@opam:1.10.0@e578d5ae",
-        "@opam/ppx_expect@opam:v0.15.0@a64d98b9",
+        "ocaml@4.14.0@d41d8cd9", "@opam/ppx_expect@opam:v0.15.0@a64d98b9",
         "@opam/ppx_deriving@opam:5.2.1@089e5dd3",
         "@opam/nice_parser@opam:1.0.0@6309e98e",
         "@opam/menhir@opam:20220210@ff87a93b",
@@ -705,32 +704,6 @@
         "ocaml@4.14.0@d41d8cd9", "@opam/time_now@opam:v0.15.0@595dd7a5",
         "@opam/ppxlib@opam:0.27.0@08d8f65d",
         "@opam/dune@opam:3.3.1@37a83374", "@opam/base@opam:v0.15.0@85d52a98"
-      ]
-    },
-    "@opam/ppx_import@opam:1.10.0@e578d5ae": {
-      "id": "@opam/ppx_import@opam:1.10.0@e578d5ae",
-      "name": "@opam/ppx_import",
-      "version": "opam:1.10.0",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://opam.ocaml.org/cache/sha256/30/300f2c7f417b0a1d702432fc13ce3bd2e90ac7b2a2796ca35899c942ca81556f#sha256:300f2c7f417b0a1d702432fc13ce3bd2e90ac7b2a2796ca35899c942ca81556f",
-          "archive:https://github.com/ocaml-ppx/ppx_import/releases/download/1.10.0/ppx_import-1.10.0.tbz#sha256:300f2c7f417b0a1d702432fc13ce3bd2e90ac7b2a2796ca35899c942ca81556f"
-        ],
-        "opam": {
-          "name": "ppx_import",
-          "version": "1.10.0",
-          "path": "esy.lock/opam/ppx_import.1.10.0"
-        }
-      },
-      "overrides": [],
-      "dependencies": [
-        "ocaml@4.14.0@d41d8cd9", "@opam/ppxlib@opam:0.27.0@08d8f65d",
-        "@opam/dune@opam:3.3.1@37a83374", "@esy-ocaml/substs@0.0.1@d41d8cd9"
-      ],
-      "devDependencies": [
-        "ocaml@4.14.0@d41d8cd9", "@opam/ppxlib@opam:0.27.0@08d8f65d",
-        "@opam/dune@opam:3.3.1@37a83374"
       ]
     },
     "@opam/ppx_here@opam:v0.15.0@a9587732": {

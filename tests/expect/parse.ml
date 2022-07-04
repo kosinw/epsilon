@@ -19,40 +19,40 @@ open Epsilon
 
 let print_syntax x = Main.parse_string x |> Pprint.syntax_tree |> print_endline
 
-let%expect_test "constant decimal expression tree" =
+let%expect_test "covers constant decimal expression tree" =
   print_syntax "1";
   [%expect {|
     Program
     └─ ConstExpr: 1 |}]
 
-let%expect_test "constant hexadecimal expression tree" =
+let%expect_test "covers constant hexadecimal expression tree" =
   print_syntax "0x41";
   [%expect {|
     Program
     └─ ConstExpr: 65 |}]
 
-let%expect_test "constant boolean expression tree" =
+let%expect_test "covers constant boolean expression tree" =
   print_syntax "true";
   [%expect {|
     Program
     └─ ConstExpr: true |}]
 
-let%expect_test "constant string expression tree" =
+let%expect_test "covers constant string expression tree" =
   print_syntax {| "hello, world!" |};
   [%expect {|
     Program
     └─ ConstExpr: "hello, world!" |}]
 
-let%expect_test "simple variable expression tree" =
+let%expect_test "covers simple variable expression tree" =
   print_syntax {| chopper |};
-  [%expect
-    {|
+  [%expect {|
     Program
     └─ VarExpr: chopper |}]
-  
-let%expect_test "binary operators expression tree" =
+
+let%expect_test "covers binary operators expression tree" =
   print_syntax {| 4 + 5 * 6 - 7 |};
-  [%expect{|
+  [%expect
+    {|
     Program
     └─ InfixExpr: -
        ├─ InfixExpr: +
@@ -61,3 +61,32 @@ let%expect_test "binary operators expression tree" =
        │     ├─ ConstExpr: 5
        │     └─ ConstExpr: 6
        └─ ConstExpr: 7 |}]
+
+let%expect_test "covers complex patterns expression tree" =
+  print_syntax
+    {|
+    fun _ -> ();
+    fun x -> ();
+    fun () -> ();
+    fun (y: int) -> ()
+  |};
+  [%expect
+    {|
+    Program
+    └─ SequenceExpr
+       ├─ FunExpr
+       │  ├─ AnyPattern
+       │  └─ ConstExpr: ()
+       └─ SequenceExpr
+          ├─ FunExpr
+          │  ├─ VarPattern: x
+          │  └─ ConstExpr: ()
+          └─ SequenceExpr
+             ├─ FunExpr
+             │  ├─ ConstPattern: ()
+             │  └─ ConstExpr: ()
+             └─ FunExpr
+                ├─ ConstraintPattern
+                │  ├─ VarPattern: y
+                │  └─ ConstructorType: int
+                └─ ConstExpr: () |}]
