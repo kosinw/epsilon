@@ -15,9 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *)
 
-open Epsilon
-
-let print_syntax x = Main.parse_string x |> Pprint.syntax_tree |> print_endline
+include Common
 
 let%expect_test "covers constant decimal expression tree" =
   print_syntax "1";
@@ -90,3 +88,85 @@ let%expect_test "covers complex patterns expression tree" =
                 │  ├─ VarPattern: y
                 │  └─ ConstructorType: int
                 └─ ConstExpr: () |}]
+
+let%expect_test "covers let expression tree" =
+  print_syntax {|
+    let x = 13 and y = x + 25
+  |};
+  [%expect
+    {|
+    Program
+    └─ LetExpr
+       ├─ LetDefinition
+       │  ├─ VarPattern: x
+       │  └─ ConstExpr: 13
+       └─ LetDefinition
+          ├─ VarPattern: y
+          └─ InfixExpr: +
+             ├─ VarExpr: x
+             └─ ConstExpr: 25 |}]
+
+let%expect_test "covers conditional expression tree" =
+  print_syntax
+    {|
+    if (true) (print_endline "Hello, new world!") else (print_endline "Impossible")
+  |};
+  [%expect
+    {|
+    Program
+    └─ ConditionalExpr
+       ├─ ConstExpr: true
+       ├─ ApplicationExpr
+       │  ├─ VarExpr: print_endline
+       │  └─ ConstExpr: "Hello, new world!"
+       └─ ApplicationExpr
+          ├─ VarExpr: print_endline
+          └─ ConstExpr: "Impossible" |}]
+
+let%expect_test "covers operator prcedence testing in expression tree" =
+  print_syntax
+    {|
+    (if (x = 3) {
+      fun x y -> unbound 3 * y + x - 15 // (((unbound 3) * y) + x) - 15
+    } else (fun x y -> unbound (-y)) : int -> int -> unbound(int));
+
+    -22
+  |};
+  [%expect
+    {|
+    Program
+    └─ SequenceExpr
+       ├─ ConstraintExpr
+       │  ├─ ConditionalExpr
+       │  │  ├─ InfixExpr: =
+       │  │  │  ├─ VarExpr: x
+       │  │  │  └─ ConstExpr: 3
+       │  │  ├─ FunExpr
+       │  │  │  ├─ VarPattern: x
+       │  │  │  └─ FunExpr
+       │  │  │     ├─ VarPattern: y
+       │  │  │     └─ InfixExpr: -
+       │  │  │        ├─ InfixExpr: +
+       │  │  │        │  ├─ InfixExpr: *
+       │  │  │        │  │  ├─ ApplicationExpr
+       │  │  │        │  │  │  ├─ VarExpr: unbound
+       │  │  │        │  │  │  └─ ConstExpr: 3
+       │  │  │        │  │  └─ VarExpr: y
+       │  │  │        │  └─ VarExpr: x
+       │  │  │        └─ ConstExpr: 15
+       │  │  └─ FunExpr
+       │  │     ├─ VarPattern: x
+       │  │     └─ FunExpr
+       │  │        ├─ VarPattern: y
+       │  │        └─ ApplicationExpr
+       │  │           ├─ VarExpr: unbound
+       │  │           └─ PrefixExpr: -
+       │  │              └─ VarExpr: y
+       │  └─ ArrowType
+       │     ├─ ConstructorType: int
+       │     └─ ArrowType
+       │        ├─ ConstructorType: int
+       │        └─ ConstructorType: unbound
+       │           └─ ConstructorType: int
+       └─ PrefixExpr: -
+          └─ ConstExpr: 22 |}]

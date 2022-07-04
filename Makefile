@@ -17,7 +17,7 @@ watch:
 	@esy dune build -w @check @runtest
 
 promote:
-	@esy dune build @runtest --auto-promote
+	@esy dune promote
 
 fmt:
 	@esy dune build @fmt --auto-promote
