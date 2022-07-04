@@ -39,6 +39,8 @@ let make_span start finish = Somewhere (start, finish)
 let span_of_lexbuf lexbuf =
   make_span (Lexing.lexeme_start_p lexbuf) (Lexing.lexeme_end_p lexbuf)
 
+let unwrap { data; _ } = data
+
 let locate ?(s = Nowhere) x = { data = x; span = s }
 let mk (startpos, endpos) x = locate ~s:(make_span startpos endpos) x
 

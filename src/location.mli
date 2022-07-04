@@ -33,6 +33,9 @@ val span_of_lexbuf : Lexing.lexbuf -> span
 (** [span_of_lexbuf lexbuf] gets the location range from current lexer buffer and creates
     a new span from it. *)
 
+val unwrap : 'a t -> 'a
+(** [unwrap x] removes the location information from [x]. *)
+
 val locate : ?s:span -> 'a -> 'a t
 (** [locate ?s x m] wraps a value [x] with an optional location range [s]. *)
 

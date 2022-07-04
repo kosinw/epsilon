@@ -11,5 +11,5 @@ include Nice_parser.Make (struct
   include Lexer
 end)
 
-let pp_syntax = Syntax.pp
+let pp_syntax = Pprint.pp_syntax_tree ~indent:2
 let () = pp_exceptions ()
