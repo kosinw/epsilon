@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *)
 
-include Common
+open Common
 
 let%expect_test "covers constant decimal expression tree" =
   print_syntax "1";
