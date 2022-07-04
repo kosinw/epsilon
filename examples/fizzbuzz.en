@@ -6,19 +6,19 @@ let fizzbuzz = fun n -> {
 
       if (divisible_by_3) {
         printf "Fizz";
-      }
+      };
 
       if (divisible_by_5) {
         printf "Buzz";
-      }
+      };
 
       if (not (divisible_by_3 && divisble_by_5)) {
         print_int x;
-      }
+      };
 
       printfn "";
     }
   }
-}
+};
 
 fizzbuzz 100;

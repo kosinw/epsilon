@@ -16,10 +16,8 @@
  *)
 
 module Tree : sig
-  type t =
-    | Leaf of string * t list
-    | Terminal of string
-        (** Intermediate representation before abstract syntax tree is pretty printed. *)
+  (** Intermediate representation before abstract syntax tree is pretty printed. *)
+  type t = Leaf of string * t list | Terminal of string
 
   val of_syntax : Syntax.t -> t
   (** [of_syntax ast] convers an abstract syntax tree into intermediate representation. *)
@@ -157,13 +155,13 @@ let rec output_tree ~indent ~level ~last ~parents ppf (t : Tree.t) =
       let l' = List.rev l in
       let parents' = level :: parents in
       List.iter
-        (output_tree ~indent ~level:(level + 1) ~last:false ~parents:parents' ppf)
+        (output_tree ~indent ~level:(level + 1) ~last:false ~parents:parents'
+           ppf)
         (List.rev (List.tl l'));
       output_tree ~indent ~level:(level + 1) ~last:true ~parents ppf
         (List.hd l')
 
 let pp_syntax_tree ?(indent = 2) ppf ast =
-  ignore indent;
   let t = Tree.of_syntax ast in
   Format.fprintf ppf "%a"
     (output_tree ~indent ~level:0 ~last:true ~parents:[])
