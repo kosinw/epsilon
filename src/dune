@@ -2,8 +2,7 @@
 
 (menhir
  (modules parser)
- (flags --explain --unused-tokens)
- (infer true))
+ (flags --explain --unused-tokens))
 
 (library
  (name epsilon)

@@ -29,7 +29,7 @@ and pattern' =
 
 and pattern = pattern' Location.t
 
-and expr =
+and expr' =
   | LetExpr of (pattern * expr) list
   | VarExpr of id
   | PrefixExpr of operator * expr
@@ -40,6 +40,8 @@ and expr =
   | SequenceExpr of expr * expr
   | ConstExpr of const
   | ConstraintExpr of expr * type_expr
+
+and expr = expr' Location.t
 
 and const' =
   | IntConst of int

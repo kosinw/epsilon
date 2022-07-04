@@ -101,6 +101,20 @@ let const_ :=
   | "false";                                                      { BoolConst false }
   | "("; ")";                                                     { UnitConst }
 
+let op ==
+  | "+";                                                          { PLUS }
+  | "-";                                                          { MINUS }
+  | "*";                                                          { TIMES }
+  | "/";                                                          { DIV }
+  | "%";                                                          { MOD }
+  | "=";                                                          { EQ }
+  | "!=";                                                         { NE }
+  | ">";                                                          { GT }
+  | "<";                                                          { LT }
+  | ">=";                                                         { GE }
+  | "<=";                                                         { LE }
+  | "&&";                                                         { AND }
+  | "||";                                                         { OR }
 
 (* TYPE EXPRESSIONS *)
 let type_expr :=
@@ -125,25 +139,10 @@ let arrow_type_expr_ :=
   | a = primitive_type_expr; "->"; b = primitive_type_expr;       { ArrowType (a, b) } 
   | x = primitive_type_expr; "->"; xs = arrow_type_expr;          { ArrowType (x, xs) }
 
-(* VALUE EXPRESSIONS *)
-let stmt :=
-  | let_clause
+(** COMPLEX EXPRESSIONS **)
+let complex_expr :=
+  | mark(let_clause)
   | expr
-
-let expr :=
-  | simple_expr
-  | conditional_expr
-  | prefix_expr
-  | infix_expr
-  | fun_expr
-  | application_expr
-  | constraint_expr
-
-let simple_expr :=  
-  | constant_expr
-  | var_expr
-  | seq_expr 
-  | delimited("(", expr, ")")
 
 let let_clause ==
   | ~ = preceded("let", let_bindings);                            < LetExpr >
@@ -153,6 +152,22 @@ let let_bindings :=
 
 let let_binding :=
   | p = complex_pattern; "="; e = expr;                           { p, e }
+
+(* VALUE EXPRESSIONS *)
+let expr :=
+  | simple_expr
+  | mark(conditional_expr)
+  | mark(prefix_expr)
+  | mark(infix_expr)
+  | fun_expr
+  | mark(application_expr)
+  | mark(constraint_expr)
+
+let simple_expr :=  
+  | mark(constant_expr)
+  | mark(var_expr)
+  | seq_expr
+  | delimited("(", expr, ")")
 
 let constant_expr ==
   | ~ = const;                                                    < ConstExpr >
@@ -165,21 +180,6 @@ let prefix_expr ==
 
 let infix_expr ==
   | e1 = expr; e2 = op; e3 = expr;                                { InfixExpr (e1, e2, e3) }
-
-let op ==
-  | "+";                                                          { PLUS }
-  | "-";                                                          { MINUS }
-  | "*";                                                          { TIMES }
-  | "/";                                                          { DIV }
-  | "%";                                                          { MOD }
-  | "=";                                                          { EQ }
-  | "!=";                                                         { NE }
-  | ">";                                                          { GT }
-  | "<";                                                          { LT }
-  | ">=";                                                         { GE }
-  | "<=";                                                         { LE }
-  | "&&";                                                         { AND }
-  | "||";                                                         { OR }
   
 let conditional_expr ==
   | "if"; c = delimited("(", expr, ")"); t = simple_expr;                                 
@@ -190,8 +190,8 @@ let fun_expr ==
   | preceded("fun", fun_expr_body)
 
 let fun_expr_body :=
-  | x = pattern; "->"; y = expr;                                  { FunExpr (x, y) }
-  | x = pattern; xs = fun_expr_body;                              { FunExpr (x, xs) }
+  | x = pattern; "->"; y = expr;                                  { Location.mk $sloc (FunExpr (x, y)) }
+  | x = pattern; xs = fun_expr_body;                              { Location.mk $sloc (FunExpr (x, xs)) }
 
 let application_expr ==
   | f = simple_expr; a = simple_expr+;                            < ApplicationExpr >
@@ -203,9 +203,10 @@ let seq_expr ==
   | delimited("{", seq_expr_body, "}")
 
 let seq_expr_body :=
-  | x = stmt; ";"?;                                               { x }
-  | x = stmt; ";"; xs = seq_expr_body;                            { SequenceExpr (x, xs) }
+  | x = complex_expr; ";"?;                                       { x }
+  | x = complex_expr; ";"; xs = seq_expr_body;                    { Location.mk $sloc (SequenceExpr (x, xs)) }
 
+(** UTILITIES **)
 let mark(X) :=
   | x = X;                                                        { Location.mk $sloc x }
 (** [mark X] transforms the semantic action of the production X to produce a type of
