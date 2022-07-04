@@ -42,3 +42,22 @@ let%expect_test "constant string expression tree" =
   [%expect {|
     Program
     └─ ConstExpr: "hello, world!" |}]
+
+let%expect_test "simple variable expression tree" =
+  print_syntax {| chopper |};
+  [%expect
+    {|
+    Program
+    └─ VarExpr: chopper |}]
+  
+let%expect_test "binary operators expression tree" =
+  print_syntax {| 4 + 5 * 6 - 7 |};
+  [%expect{|
+    Program
+    └─ InfixExpr: -
+       ├─ InfixExpr: +
+       │  ├─ ConstExpr: 4
+       │  └─ InfixExpr: *
+       │     ├─ ConstExpr: 5
+       │     └─ ConstExpr: 6
+       └─ ConstExpr: 7 |}]

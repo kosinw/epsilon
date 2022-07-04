@@ -1,5 +1,5 @@
 (library
- (name expect_epsilon)
+ (name epsilon_test)
  (libraries epsilon)
  (inline_tests)
  (preprocess (pps ppx_expect)))

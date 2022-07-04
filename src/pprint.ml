@@ -56,7 +56,7 @@ end = struct
     | InfixExpr (e1, o, e2) ->
         let e1' = Location.unwrap e1 in
         let e2' = Location.unwrap e2 in
-        let contents = Printf.sprintf "PrefixExpr: %s" (of_operator o) in
+        let contents = Printf.sprintf "InfixExpr: %s" (of_operator o) in
         make_leaf contents [ of_expr e1'; of_expr e2' ]
     | ConditionalExpr (c, t, f) ->
         let exprs =

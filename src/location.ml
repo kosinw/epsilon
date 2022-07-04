@@ -15,8 +15,6 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *)
 
-let show_spans = ref true
-
 let pp_positions ppf (p : Lexing.position * Lexing.position) =
   let ln (pos : Lexing.position) = pos.pos_lnum in
   let col (pos : Lexing.position) = pos.pos_cnum - pos.pos_bol in
@@ -40,13 +38,9 @@ let span_of_lexbuf lexbuf =
   make_span (Lexing.lexeme_start_p lexbuf) (Lexing.lexeme_end_p lexbuf)
 
 let unwrap { data; _ } = data
-
 let locate ?(s = Nowhere) x = { data = x; span = s }
 let mk (startpos, endpos) x = locate ~s:(make_span startpos endpos) x
-
-let pp fmt1 ppf x =
-  if !show_spans then Format.fprintf ppf "%a %a" fmt1 x.data pp_span x.span
-  else Format.fprintf ppf "%a" fmt1 x.data
+let pp fmt1 ppf x = Format.fprintf ppf "%a %a" fmt1 x.data pp_span x.span
 
 let show fmt1 x =
   let ppf = Format.str_formatter in
