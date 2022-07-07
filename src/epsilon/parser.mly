@@ -1,20 +1,3 @@
-(*
-  Copyright (c) 2022 Kosi Nwabueze
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*)
-
 %{
   open Syntax
 %}
@@ -102,19 +85,19 @@ let const_ :=
   | "("; ")";                                                     { UnitConst }
 
 let op ==
-  | "+";                                                          { PLUS }
-  | "-";                                                          { MINUS }
-  | "*";                                                          { TIMES }
-  | "/";                                                          { DIV }
-  | "%";                                                          { MOD }
-  | "=";                                                          { EQ }
-  | "!=";                                                         { NE }
-  | ">";                                                          { GT }
-  | "<";                                                          { LT }
-  | ">=";                                                         { GE }
-  | "<=";                                                         { LE }
-  | "&&";                                                         { AND }
-  | "||";                                                         { OR }
+  | "+";                                                          { Syntax.PLUS }
+  | "-";                                                          { Syntax.MINUS }
+  | "*";                                                          { Syntax.TIMES }
+  | "/";                                                          { Syntax.DIV }
+  | "%";                                                          { Syntax.MOD }
+  | "=";                                                          { Syntax.EQ }
+  | "!=";                                                         { Syntax.NE }
+  | ">";                                                          { Syntax.GT }
+  | "<";                                                          { Syntax.LT }
+  | ">=";                                                         { Syntax.GE }
+  | "<=";                                                         { Syntax.LE }
+  | "&&";                                                         { Syntax.AND }
+  | "||";                                                         { Syntax.OR }
 
 (* TYPE EXPRESSIONS *)
 let type_expr :=
@@ -140,11 +123,11 @@ let arrow_type_expr_ :=
   | x = primitive_type_expr; "->"; xs = arrow_type_expr;          { ArrowType (x, xs) }
 
 (** COMPLEX EXPRESSIONS **)
-let complex_expr :=
-  | mark(let_clause)
+let structure_item :=
+  | mark(let_definition)
   | expr
 
-let let_clause ==
+let let_definition ==
   | ~ = preceded("let", let_bindings);                            < LetExpr >
 
 let let_bindings :=
@@ -203,11 +186,11 @@ let seq_expr ==
   | delimited("{", seq_expr_body, "}")
 
 let seq_expr_body :=
-  | x = complex_expr; ";"?;                                       { x }
-  | x = complex_expr; ";"; xs = seq_expr_body;                    { Location.mk $sloc (SequenceExpr (x, xs)) }
+  | x = structure_item; ";"?;                                     { x }
+  | x = structure_item; ";"; xs = seq_expr_body;                  { Location.mk $sloc (SequenceExpr (x, xs)) }
 
 (** UTILITIES **)
-let mark(X) :=
+let mark(X) ==
   | x = X;                                                        { Location.mk $sloc x }
 (** [mark X] transforms the semantic action of the production X to produce a type of
   ['a Location.t] where ['a] is the type of the semantic action of X. *)

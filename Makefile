@@ -25,4 +25,7 @@ fmt:
 utop:
 	@esy dune utop
 
+clean:
+	@esy && esy dune clean
+
 .PHONY: watch utop fmt promote

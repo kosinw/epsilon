@@ -3,6 +3,7 @@
   <img src="media/banner.png" />
  </a>
 </p>
+<h1 align="center">Epsilon</h1>
 
 Epsilon is a compiled, small, strict, and statically-typed functional language similar to the [ML programming language](https://en.wikipedia.org/wiki/ML_(programming_language)). I am currently working on this compiler to learn more about functional programming, programming language theory and compilers. 
 
@@ -183,4 +184,4 @@ Epsilon is distributed under the terms of the [GNU GPLv3 License](./LICENSE.md).
 * [Modern Compiler Implementation in ML](https://www.cs.princeton.edu/~appel/modern/ml/) - Andrew M. Appel
 * [Real World OCaml, 2nd ed.](https://dev.realworldocaml) - Yaron Minsky and Anil Madhavapeddy
 * [OCaml Programming: Correct + Efficient + Beautiful](https://cs3110.github.io/textbook/cover.html) - Michael R. Clarkson
-* [MinCaml: A Simple and Efficient Compiler for a Minimal Functional Language](https://esumii.github.io/min-caml/paper.pdf) - Eijiro Sumii
+* [reasonml/reason](https://github.com/reasonml/reaosn) - Facebook

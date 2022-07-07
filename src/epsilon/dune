@@ -2,7 +2,7 @@
 
 (menhir
  (modules parser)
- (flags --explain --unused-tokens))
+ (flags --table --dump --inspection --explain --unused-tokens))
 
 (library
  (name epsilon)
