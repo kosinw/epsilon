@@ -34,3 +34,7 @@ _opam/
 # Esy
 node_modules
 _esy
+esy.lock
+
+# Scratch files
+**/*.utop

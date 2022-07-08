@@ -13,6 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+build:
+	@esy build
+
 watch:
 	@esy dune build -w @check @runtest
 
@@ -28,4 +31,4 @@ utop:
 clean:
 	@esy && esy dune clean
 
-.PHONY: watch utop fmt promote
+.PHONY: watch utop fmt promote build
