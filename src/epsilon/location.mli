@@ -16,9 +16,6 @@ val of_lexbuf : Lexing.lexbuf -> location
 val unwrap : 'a t -> 'a
 (** [unwrap x] removes the location information from [x]. *)
 
-val locate : ?s:location -> 'a -> 'a t
-(** [locate ?s x m] wraps a value [x] with an optional location range [s]. *)
-
 val mk : Lexing.position * Lexing.position -> 'a -> 'a t
 (** [mk pos x] creates a node tagged with location data given a pair of [Lexing.position]
     and a node [x]. *)
