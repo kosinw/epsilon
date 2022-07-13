@@ -1,6 +1,7 @@
 module I = Parser.MenhirInterpreter
 module P = Parser
-module L = Lexer
+module U = MenhirLib.LexerUtil
+module E = MenhirLib.ErrorReports
 
 (** The concept of this submodule is to provide a persistent data structure
    as an abstraction over the lexer. The idea is that lexers can be
@@ -9,7 +10,7 @@ module L = Lexer
    valid points of time in the lexer's execution. This allows for backtracking
    and is particularly useful during parser error recovery.
 
-   See: https://github.com/yurug/menhir-error-recovery
+   Reference: https://github.com/yurug/menhir-error-recovery
 *)
 module Lexer : sig
   open Parser
@@ -29,7 +30,7 @@ module Lexer : sig
   (** [get checkpoint] gets the token emitted at [checkpoint]
              and its position emitted by the lexer at this checkpoint. *)
 
-  val loc : checkpoint -> Location.location
+  val loc : checkpoint -> Lexing.position * Lexing.position
   (** [loc checkpoint] gets the current location of the token emitted at [checkpoint]. *)
 
   val get' : checkpoint -> token
@@ -43,9 +44,9 @@ module Lexer : sig
   (** [token checkpoint] returns the next checkpoint and its assosciated token from the lexer. *)
 
   val skip_until : (token -> bool) -> checkpoint -> checkpoint
-  (** [skip_until predicate checkpoint] returns the checkpoint right before the checkpoint
-             where [predicate (get' checkpoint)] is true. If [EOF] is reached before predicate
-             is true, then the checkpoint right before [EOF] is returned instead.  *)
+  (** [skip_until predicate checkpoint] returns the first checkpoint before [predicate (get' checkpoint)]
+      is true. If [EOF] is reached before predicate is true, then the checkpoint right before 
+      [EOF] is returned instead.  *)
 end = struct
   open Parser
 
@@ -61,12 +62,10 @@ end = struct
   (* Forward function composition operator from F#. *)
   let ( >> ) f g x = g (f x)
   let token_of_ptoken (token, _, _) = token
-
-  let location_of_ptoken (_, start, finish) =
-    Location.make_location start finish
+  let location_of_ptoken (_, start, finish) = (start, finish)
 
   let init lexbuf =
-    let supplier = I.lexer_lexbuf_to_supplier L.token lexbuf in
+    let supplier = I.lexer_lexbuf_to_supplier Lexer.token lexbuf in
     {
       check_supplier = supplier;
       check_buffer_size = ref 0;
@@ -101,7 +100,6 @@ end = struct
 
   let loc = get >> location_of_ptoken
   let get' = get >> token_of_ptoken
-  let peek buffer = List.hd !buffer |> token_of_ptoken
 
   let next_checkpoint checkpoint =
     { checkpoint with check_token_index = checkpoint.check_token_index + 1 }
@@ -118,42 +116,71 @@ end = struct
   let skip_until pred checkpoint =
     let rec aux checkpoint =
       let checkpoint', (t, _, _) = token checkpoint in
-      if t = EOF then checkpoint
-      else if pred t then checkpoint
-      else aux checkpoint'
+      if t = EOF || pred t then checkpoint' else aux checkpoint'
     in
     aux checkpoint
 end
 
 (* ---------------------------------- *)
 
-type last_reduction = [
-  | `FoundDefinitionAt of Syntax.t I.checkpoint
-  | `FoundBraceAt of Syntax.t I.checkpoint
-  | `FoundNothingAt of Syntax.t I.checkpoint
-]
+let resume_from_error last_reduction_p lexer =
+  match last_reduction_p with
+  | `FoundNothing checkpoint | `FoundSeqItem checkpoint ->
+      let lexer = Lexer.skip_until (fun t -> t = SEMI) lexer in
+      (lexer, checkpoint)
+
+let update_last_reduction last_input_p last_reduction_p production =
+  let open I in
+  match lhs production with
+  | X (N N_seq_expr_item) -> `FoundSeqItem last_input_p
+  | _ -> last_reduction_p
 
 let parse (lexbuf : Lexing.lexbuf) =
-  (* [run] is the main looping mechanism for the incremental parser. *)
-  let rec run checkpoint lexer =
+  (* [on_error] is responsible for both reporting errors to the
+     diagnostic report as well as returning a lexer and parser checkpoint
+     from which error recovery will occur. *)
+  let on_error last_reduction_p lexer =
+    Printf.eprintf "%sError: Syntax error\n" (U.range (Lexer.loc lexer));
+    resume_from_error last_reduction_p lexer
+  in
+
+  (* [run] is the main looping mechanism for the incremental parser.
+
+     We maintain [last_reduction_p] as the last checkpoint in the parser
+     to back track to if we encounter an error midway through reducing
+     another production.
+
+     We maintain [last_input_p] as the last checkpoint in the parser
+     which a token was requested (this is the checkpoint which must be
+     used during error recovery).
+
+     [lexer] and [checkpoint] are persistent data structures which
+     represent the state of the lexer and parser respectively.
+  *)
+  let rec run last_reduction_p last_input_p checkpoint lexer =
     match checkpoint with
     | I.InputNeeded _ ->
         let lexer, token = Lexer.token lexer in
-        run (I.offer checkpoint token) lexer
-    | I.Shifting _ | I.AboutToReduce _ ->
+        (* [last_input] is updated here. *)
+        run last_reduction_p checkpoint (I.offer checkpoint token) lexer
+    | I.Shifting _ ->
         (* Do nothing special here just continue parsing. *)
-        (* TODO(kosinw): Make I.AboutToReduce keep track of the last production that was reduced. *)
-        run (I.resume checkpoint) lexer
-    | I.Rejected | I.HandlingError _ ->
-        (* TODO(kosinw): Definitely replace this with fancy error reporting *)
-        failwith "syntax error occurred"
+        run last_reduction_p last_input_p (I.resume checkpoint) lexer
+    | I.AboutToReduce (_, production) ->
+        (* Update last reduction since we are about to reduce a nonterminal symbol. *)
+        run
+          (update_last_reduction last_input_p last_reduction_p production)
+          last_input_p (I.resume checkpoint) lexer
+    | I.Rejected -> failwith "rejected"
+    | I.HandlingError _ ->
+        let lexer, checkpoint = on_error last_reduction_p lexer in
+        run last_reduction_p last_input_p checkpoint lexer
     | I.Accepted v -> v
   in
   let checkpoint = P.Incremental.main lexbuf.lex_curr_p in
   let lexer = Lexer.init lexbuf in
-  run checkpoint lexer
+  run (`FoundNothing checkpoint) checkpoint checkpoint lexer
 
 let parse_string s =
-  let module U = MenhirLib.LexerUtil in
-  let lexbuf = Lexing.from_string s |> U.init "" in
+  let lexbuf = U.init "<no file>" (Lexing.from_string s) in
   parse lexbuf

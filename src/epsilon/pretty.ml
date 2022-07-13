@@ -10,8 +10,9 @@ end = struct
   let make_leaf text children = Leaf (text, children)
   let make_terminal text = Terminal text
 
-  let rec of_syntax (Program e : Syntax.t) =
-    make_leaf "Program" [ of_expr (Location.unwrap e) ]
+  let rec of_syntax = function
+    | Syntax.Program e -> make_leaf "Program" [ of_expr (Location.unwrap e) ]
+    | Syntax.Invalid -> make_terminal "Invalid"
 
   and of_pattern : Syntax.pattern' -> t = function
     | AnyPattern -> make_terminal "AnyPattern"
@@ -119,7 +120,8 @@ end = struct
     | OR -> "||"
 end
 
-let rec output_tree ~indent ~level ~last ~parents ppf (t : Tree.t) =
+let rec output_tree ~level ~last ~parents ppf (t : Tree.t) =
+  let indent = 2 in
   for i = 1 to level - 1 do
     if List.mem (i - 1) parents then Format.pp_print_string ppf "│"
     else Format.pp_print_string ppf " ";
@@ -138,19 +140,15 @@ let rec output_tree ~indent ~level ~last ~parents ppf (t : Tree.t) =
       let l' = List.rev l in
       let parents' = level :: parents in
       List.iter
-        (output_tree ~indent ~level:(level + 1) ~last:false ~parents:parents'
-           ppf)
+        (output_tree ~level:(level + 1) ~last:false ~parents:parents' ppf)
         (List.rev (List.tl l'));
-      output_tree ~indent ~level:(level + 1) ~last:true ~parents ppf
-        (List.hd l')
+      output_tree ~level:(level + 1) ~last:true ~parents ppf (List.hd l')
 
-let pp_syntax_tree ?(indent = 2) ppf ast =
+let pp_syntax_tree ppf ast =
   let t = Tree.of_syntax ast in
-  Format.fprintf ppf "%a"
-    (output_tree ~indent ~level:0 ~last:true ~parents:[])
-    t
+  Format.fprintf ppf "%a" (output_tree ~level:0 ~last:true ~parents:[]) t
 
-let syntax_tree ?(indent = 2) ast =
+let syntax_tree ast =
   ignore (Format.flush_str_formatter ());
-  pp_syntax_tree ~indent Format.str_formatter ast;
+  pp_syntax_tree Format.str_formatter ast;
   Format.flush_str_formatter ()

@@ -1,0 +1,1430 @@
+main: USCORE
+##
+## Ends in an error in state: 0.
+##
+## main' -> . main [ # ]
+##
+## The known suffix of the stack is as follows:
+##
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: MINUS USCORE
+##
+## Ends in an error in state: 3.
+##
+## expr -> MINUS . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## MINUS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LPAREN USCORE
+##
+## Ends in an error in state: 4.
+##
+## const_ -> LPAREN . RPAREN [ TRUE TIMES STRING SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LPAREN LE LBRACE INT ID GT GE FALSE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> LPAREN . expr COLON type_expr RPAREN [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## simple_expr -> LPAREN . expr RPAREN [ TRUE TIMES STRING SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LPAREN LE LBRACE INT ID GT GE FALSE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LBRACE USCORE
+##
+## Ends in an error in state: 6.
+##
+## simple_expr -> LBRACE . seq_expr_body RBRACE [ TRUE TIMES STRING SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LPAREN LE LBRACE INT ID GT GE FALSE EQ EOF ELSE DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LBRACE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET TYPE
+##
+## Ends in an error in state: 7.
+##
+## seq_expr_item -> LET . let_bindings [ SEMI RBRACE EOF ]
+##
+## The known suffix of the stack is as follows:
+## LET
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET LPAREN TYPE
+##
+## Ends in an error in state: 9.
+##
+## complex_pattern -> LPAREN . complex_pattern RPAREN [ RPAREN EQ ]
+## const_ -> LPAREN . RPAREN [ RPAREN EQ COLON ]
+## constraint_pattern_ -> LPAREN . complex_pattern RPAREN COLON type_expr [ RPAREN EQ ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE USCORE
+##
+## Ends in an error in state: 13.
+##
+## complex_pattern -> pattern_ . [ RPAREN EQ ]
+## constraint_pattern_ -> pattern_ . COLON type_expr [ RPAREN EQ ]
+##
+## The known suffix of the stack is as follows:
+## pattern_
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON USCORE
+##
+## Ends in an error in state: 14.
+##
+## constraint_pattern_ -> pattern_ COLON . type_expr [ RPAREN EQ ]
+##
+## The known suffix of the stack is as follows:
+## pattern_ COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON LPAREN USCORE
+##
+## Ends in an error in state: 15.
+##
+## arrow_type_expr_ -> LPAREN . type_expr RPAREN RARR primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN . type_expr RPAREN RARR LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN . type_expr RPAREN RARR arrow_type_expr_ [ RPAREN EQ COMMA ]
+## type_expr -> LPAREN . type_expr RPAREN [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON ID USCORE
+##
+## Ends in an error in state: 16.
+##
+## primitive_type_expr_ -> ID . [ RPAREN RARR EQ COMMA ]
+## primitive_type_expr_ -> ID . LPAREN type_argument_list RPAREN [ RPAREN RARR EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## ID
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON ID LPAREN USCORE
+##
+## Ends in an error in state: 17.
+##
+## primitive_type_expr_ -> ID LPAREN . type_argument_list RPAREN [ RPAREN RARR EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## ID LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON ID LPAREN ID EQ
+##
+## Ends in an error in state: 18.
+##
+## separated_nonempty_list(COMMA,type_expr) -> type_expr . [ RPAREN ]
+## separated_nonempty_list(COMMA,type_expr) -> type_expr . COMMA separated_nonempty_list(COMMA,type_expr) [ RPAREN ]
+##
+## The known suffix of the stack is as follows:
+## type_expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 16, spurious reduction of production primitive_type_expr_ -> ID
+## In state 21, spurious reduction of production type_expr -> primitive_type_expr_
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON ID LPAREN ID COMMA USCORE
+##
+## Ends in an error in state: 19.
+##
+## separated_nonempty_list(COMMA,type_expr) -> type_expr COMMA . separated_nonempty_list(COMMA,type_expr) [ RPAREN ]
+##
+## The known suffix of the stack is as follows:
+## type_expr COMMA
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON ID LPAREN ID RPAREN USCORE
+##
+## Ends in an error in state: 21.
+##
+## arrow_type_expr_ -> primitive_type_expr_ . RARR primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> primitive_type_expr_ . RARR LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> primitive_type_expr_ . RARR arrow_type_expr_ [ RPAREN EQ COMMA ]
+## type_expr -> primitive_type_expr_ . [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## primitive_type_expr_
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON ID RARR USCORE
+##
+## Ends in an error in state: 22.
+##
+## arrow_type_expr_ -> primitive_type_expr_ RARR . primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> primitive_type_expr_ RARR . LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> primitive_type_expr_ RARR . arrow_type_expr_ [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## primitive_type_expr_ RARR
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON ID RARR LPAREN USCORE
+##
+## Ends in an error in state: 23.
+##
+## arrow_type_expr_ -> primitive_type_expr_ RARR LPAREN . type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN . type_expr RPAREN RARR primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN . type_expr RPAREN RARR LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN . type_expr RPAREN RARR arrow_type_expr_ [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## primitive_type_expr_ RARR LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON ID RARR LPAREN ID EQ
+##
+## Ends in an error in state: 24.
+##
+## arrow_type_expr_ -> primitive_type_expr_ RARR LPAREN type_expr . RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr . RPAREN RARR primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr . RPAREN RARR LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr . RPAREN RARR arrow_type_expr_ [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## primitive_type_expr_ RARR LPAREN type_expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 16, spurious reduction of production primitive_type_expr_ -> ID
+## In state 21, spurious reduction of production type_expr -> primitive_type_expr_
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON ID RARR LPAREN ID RPAREN USCORE
+##
+## Ends in an error in state: 25.
+##
+## arrow_type_expr_ -> primitive_type_expr_ RARR LPAREN type_expr RPAREN . [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr RPAREN . RARR primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr RPAREN . RARR LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr RPAREN . RARR arrow_type_expr_ [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## primitive_type_expr_ RARR LPAREN type_expr RPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON LPAREN ID RPAREN RARR USCORE
+##
+## Ends in an error in state: 26.
+##
+## arrow_type_expr_ -> LPAREN type_expr RPAREN RARR . primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr RPAREN RARR . LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr RPAREN RARR . arrow_type_expr_ [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN type_expr RPAREN RARR
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON LPAREN ID RPAREN RARR LPAREN USCORE
+##
+## Ends in an error in state: 27.
+##
+## arrow_type_expr_ -> LPAREN . type_expr RPAREN RARR primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN . type_expr RPAREN RARR LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr RPAREN RARR LPAREN . type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN . type_expr RPAREN RARR arrow_type_expr_ [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN type_expr RPAREN RARR LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON LPAREN ID RPAREN RARR LPAREN ID EQ
+##
+## Ends in an error in state: 28.
+##
+## arrow_type_expr_ -> LPAREN type_expr . RPAREN RARR primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr . RPAREN RARR LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr RPAREN RARR LPAREN type_expr . RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr . RPAREN RARR arrow_type_expr_ [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN type_expr RPAREN RARR LPAREN type_expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 16, spurious reduction of production primitive_type_expr_ -> ID
+## In state 21, spurious reduction of production type_expr -> primitive_type_expr_
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON LPAREN ID RPAREN RARR LPAREN ID RPAREN USCORE
+##
+## Ends in an error in state: 29.
+##
+## arrow_type_expr_ -> LPAREN type_expr RPAREN . RARR primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr RPAREN . RARR LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr RPAREN RARR LPAREN type_expr RPAREN . [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr RPAREN . RARR arrow_type_expr_ [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN type_expr RPAREN RARR LPAREN type_expr RPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON LPAREN ID RPAREN RARR ID LPAREN ID RPAREN USCORE
+##
+## Ends in an error in state: 31.
+##
+## arrow_type_expr_ -> primitive_type_expr_ . RARR primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> primitive_type_expr_ . RARR LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr RPAREN RARR primitive_type_expr_ . [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> primitive_type_expr_ . RARR arrow_type_expr_ [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN type_expr RPAREN RARR primitive_type_expr_
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON ID RARR ID LPAREN ID RPAREN USCORE
+##
+## Ends in an error in state: 33.
+##
+## arrow_type_expr_ -> primitive_type_expr_ . RARR primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> primitive_type_expr_ RARR primitive_type_expr_ . [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> primitive_type_expr_ . RARR LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> primitive_type_expr_ . RARR arrow_type_expr_ [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## primitive_type_expr_ RARR primitive_type_expr_
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON LPAREN ID EQ
+##
+## Ends in an error in state: 38.
+##
+## arrow_type_expr_ -> LPAREN type_expr . RPAREN RARR primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr . RPAREN RARR LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr . RPAREN RARR arrow_type_expr_ [ RPAREN EQ COMMA ]
+## type_expr -> LPAREN type_expr . RPAREN [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN type_expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 16, spurious reduction of production primitive_type_expr_ -> ID
+## In state 21, spurious reduction of production type_expr -> primitive_type_expr_
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE COLON LPAREN ID RPAREN USCORE
+##
+## Ends in an error in state: 39.
+##
+## arrow_type_expr_ -> LPAREN type_expr RPAREN . RARR primitive_type_expr_ [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr RPAREN . RARR LPAREN type_expr RPAREN [ RPAREN EQ COMMA ]
+## arrow_type_expr_ -> LPAREN type_expr RPAREN . RARR arrow_type_expr_ [ RPAREN EQ COMMA ]
+## type_expr -> LPAREN type_expr RPAREN . [ RPAREN EQ COMMA ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN type_expr RPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET LPAREN FALSE EQ
+##
+## Ends in an error in state: 43.
+##
+## complex_pattern -> LPAREN complex_pattern . RPAREN [ RPAREN EQ ]
+## constraint_pattern_ -> LPAREN complex_pattern . RPAREN COLON type_expr [ RPAREN EQ ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN complex_pattern
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 13, spurious reduction of production complex_pattern -> pattern_
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET LPAREN FALSE RPAREN USCORE
+##
+## Ends in an error in state: 44.
+##
+## complex_pattern -> LPAREN complex_pattern RPAREN . [ RPAREN EQ ]
+## constraint_pattern_ -> LPAREN complex_pattern RPAREN . COLON type_expr [ RPAREN EQ ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN complex_pattern RPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET LPAREN FALSE RPAREN COLON USCORE
+##
+## Ends in an error in state: 45.
+##
+## constraint_pattern_ -> LPAREN complex_pattern RPAREN COLON . type_expr [ RPAREN EQ ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN complex_pattern RPAREN COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE EQ FALSE AND TYPE
+##
+## Ends in an error in state: 50.
+##
+## separated_nonempty_list(AND,let_binding) -> let_binding AND . separated_nonempty_list(AND,let_binding) [ SEMI RBRACE EOF ]
+##
+## The known suffix of the stack is as follows:
+## let_binding AND
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE RPAREN
+##
+## Ends in an error in state: 52.
+##
+## let_binding -> complex_pattern . EQ expr [ SEMI RBRACE EOF AND ]
+##
+## The known suffix of the stack is as follows:
+## complex_pattern
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 13, spurious reduction of production complex_pattern -> pattern_
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE EQ USCORE
+##
+## Ends in an error in state: 53.
+##
+## let_binding -> complex_pattern EQ . expr [ SEMI RBRACE EOF AND ]
+##
+## The known suffix of the stack is as follows:
+## complex_pattern EQ
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: IF USCORE
+##
+## Ends in an error in state: 54.
+##
+## expr -> IF . LPAREN expr RPAREN simple_expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> IF . LPAREN expr RPAREN simple_expr ELSE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## IF
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: IF LPAREN USCORE
+##
+## Ends in an error in state: 55.
+##
+## expr -> IF LPAREN . expr RPAREN simple_expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> IF LPAREN . expr RPAREN simple_expr ELSE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## IF LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FUN TYPE
+##
+## Ends in an error in state: 57.
+##
+## expr -> FUN . fun_expr_body [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## FUN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FUN LPAREN TYPE
+##
+## Ends in an error in state: 58.
+##
+## const_ -> LPAREN . RPAREN [ USCORE TRUE STRING RARR LPAREN INT ID FALSE ]
+## fun_expr_body -> LPAREN . complex_pattern RPAREN RARR expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## fun_expr_body -> LPAREN . complex_pattern RPAREN fun_expr_body [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FUN LPAREN FALSE EQ
+##
+## Ends in an error in state: 59.
+##
+## fun_expr_body -> LPAREN complex_pattern . RPAREN RARR expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## fun_expr_body -> LPAREN complex_pattern . RPAREN fun_expr_body [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN complex_pattern
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 13, spurious reduction of production complex_pattern -> pattern_
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FUN LPAREN FALSE RPAREN TYPE
+##
+## Ends in an error in state: 60.
+##
+## fun_expr_body -> LPAREN complex_pattern RPAREN . RARR expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## fun_expr_body -> LPAREN complex_pattern RPAREN . fun_expr_body [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN complex_pattern RPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FUN LPAREN FALSE RPAREN RARR USCORE
+##
+## Ends in an error in state: 61.
+##
+## fun_expr_body -> LPAREN complex_pattern RPAREN RARR . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN complex_pattern RPAREN RARR
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE USCORE
+##
+## Ends in an error in state: 62.
+##
+## expr -> simple_expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> simple_expr . nonempty_list(simple_expr) [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE LPAREN USCORE
+##
+## Ends in an error in state: 63.
+##
+## const_ -> LPAREN . RPAREN [ TRUE TIMES STRING SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LPAREN LE LBRACE INT ID GT GE FALSE EQ EOF ELSE DPIPE DIV DAMPER COLON AND ]
+## simple_expr -> LPAREN . expr RPAREN [ TRUE TIMES STRING SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LPAREN LE LBRACE INT ID GT GE FALSE EQ EOF ELSE DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE LPAREN FALSE SEMI
+##
+## Ends in an error in state: 64.
+##
+## expr -> expr . PLUS expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . MINUS expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . TIMES expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . DIV expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . MOD expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . EQ expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . NE expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . GT expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . LT expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . GE expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . LE expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . DAMPER expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . DPIPE expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## simple_expr -> LPAREN expr . RPAREN [ TRUE TIMES STRING SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LPAREN LE LBRACE INT ID GT GE FALSE EQ EOF ELSE DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 62, spurious reduction of production expr -> simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE TIMES USCORE
+##
+## Ends in an error in state: 65.
+##
+## expr -> expr TIMES . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr TIMES
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE PLUS USCORE
+##
+## Ends in an error in state: 69.
+##
+## expr -> expr PLUS . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr PLUS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE PLUS LPAREN FALSE COLON ID RPAREN USCORE
+##
+## Ends in an error in state: 70.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr PLUS expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . NE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr PLUS expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE MOD USCORE
+##
+## Ends in an error in state: 71.
+##
+## expr -> expr MOD . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr MOD
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE DIV USCORE
+##
+## Ends in an error in state: 73.
+##
+## expr -> expr DIV . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr DIV
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE NE USCORE
+##
+## Ends in an error in state: 75.
+##
+## expr -> expr NE . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr NE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE NE FALSE NE
+##
+## Ends in an error in state: 76.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . NE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr NE expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr NE expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 62, spurious reduction of production expr -> simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE MINUS USCORE
+##
+## Ends in an error in state: 77.
+##
+## expr -> expr MINUS . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr MINUS
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE MINUS LPAREN FALSE COLON ID RPAREN USCORE
+##
+## Ends in an error in state: 78.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr MINUS expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . NE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr MINUS expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE LT USCORE
+##
+## Ends in an error in state: 79.
+##
+## expr -> expr LT . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr LT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE LT FALSE NE
+##
+## Ends in an error in state: 80.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . NE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr LT expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr LT expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 62, spurious reduction of production expr -> simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE LE USCORE
+##
+## Ends in an error in state: 81.
+##
+## expr -> expr LE . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr LE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE LE FALSE NE
+##
+## Ends in an error in state: 82.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . NE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr LE expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr LE expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 62, spurious reduction of production expr -> simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE GT USCORE
+##
+## Ends in an error in state: 83.
+##
+## expr -> expr GT . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr GT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE GT FALSE NE
+##
+## Ends in an error in state: 84.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . NE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr GT expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr GT expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 62, spurious reduction of production expr -> simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE GE USCORE
+##
+## Ends in an error in state: 85.
+##
+## expr -> expr GE . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr GE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE GE FALSE NE
+##
+## Ends in an error in state: 86.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . NE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr GE expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr GE expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 62, spurious reduction of production expr -> simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE EQ USCORE
+##
+## Ends in an error in state: 87.
+##
+## expr -> expr EQ . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr EQ
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE EQ FALSE NE
+##
+## Ends in an error in state: 88.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr EQ expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . NE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr EQ expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 62, spurious reduction of production expr -> simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE DPIPE USCORE
+##
+## Ends in an error in state: 89.
+##
+## expr -> expr DPIPE . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr DPIPE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE DPIPE LPAREN FALSE COLON ID RPAREN USCORE
+##
+## Ends in an error in state: 90.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . NE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr DPIPE expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr DPIPE expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE DAMPER USCORE
+##
+## Ends in an error in state: 91.
+##
+## expr -> expr DAMPER . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr DAMPER
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE DAMPER LPAREN FALSE COLON ID RPAREN USCORE
+##
+## Ends in an error in state: 92.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . NE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr DAMPER expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## expr DAMPER expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE FALSE USCORE
+##
+## Ends in an error in state: 93.
+##
+## nonempty_list(simple_expr) -> simple_expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## nonempty_list(simple_expr) -> simple_expr . nonempty_list(simple_expr) [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FUN LPAREN FALSE RPAREN RARR LPAREN FALSE COLON ID RPAREN USCORE
+##
+## Ends in an error in state: 96.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . NE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## fun_expr_body -> LPAREN complex_pattern RPAREN RARR expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN complex_pattern RPAREN RARR expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FUN FALSE TYPE
+##
+## Ends in an error in state: 97.
+##
+## fun_expr_body -> pattern_ . RARR expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## fun_expr_body -> pattern_ . fun_expr_body [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## pattern_
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FUN FALSE RARR USCORE
+##
+## Ends in an error in state: 98.
+##
+## fun_expr_body -> pattern_ RARR . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## pattern_ RARR
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FUN FALSE RARR LPAREN FALSE COLON ID RPAREN USCORE
+##
+## Ends in an error in state: 99.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . NE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## fun_expr_body -> pattern_ RARR expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## pattern_ RARR expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: IF LPAREN FALSE SEMI
+##
+## Ends in an error in state: 103.
+##
+## expr -> IF LPAREN expr . RPAREN simple_expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> IF LPAREN expr . RPAREN simple_expr ELSE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . PLUS expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . MINUS expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . TIMES expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . DIV expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . MOD expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . EQ expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . NE expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . GT expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . LT expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . GE expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . LE expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . DAMPER expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+## expr -> expr . DPIPE expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER ]
+##
+## The known suffix of the stack is as follows:
+## IF LPAREN expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 62, spurious reduction of production expr -> simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: IF LPAREN FALSE RPAREN USCORE
+##
+## Ends in an error in state: 104.
+##
+## expr -> IF LPAREN expr RPAREN . simple_expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> IF LPAREN expr RPAREN . simple_expr ELSE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## IF LPAREN expr RPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: IF LPAREN FALSE RPAREN FALSE USCORE
+##
+## Ends in an error in state: 105.
+##
+## expr -> IF LPAREN expr RPAREN simple_expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> IF LPAREN expr RPAREN simple_expr . ELSE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## IF LPAREN expr RPAREN simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: IF LPAREN FALSE RPAREN FALSE ELSE USCORE
+##
+## Ends in an error in state: 106.
+##
+## expr -> IF LPAREN expr RPAREN simple_expr ELSE . expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## IF LPAREN expr RPAREN simple_expr ELSE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: IF LPAREN FALSE RPAREN FALSE ELSE LPAREN FALSE COLON ID RPAREN USCORE
+##
+## Ends in an error in state: 107.
+##
+## expr -> IF LPAREN expr RPAREN simple_expr ELSE expr . [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . PLUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . NE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LT expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . GE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . LE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## IF LPAREN expr RPAREN simple_expr ELSE expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LET FALSE EQ FALSE RPAREN
+##
+## Ends in an error in state: 108.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER AND ]
+## expr -> expr . MINUS expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER AND ]
+## expr -> expr . TIMES expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER AND ]
+## expr -> expr . DIV expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER AND ]
+## expr -> expr . MOD expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER AND ]
+## expr -> expr . EQ expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER AND ]
+## expr -> expr . NE expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER AND ]
+## expr -> expr . GT expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER AND ]
+## expr -> expr . LT expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER AND ]
+## expr -> expr . GE expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER AND ]
+## expr -> expr . LE expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER AND ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER AND ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER AND ]
+## let_binding -> complex_pattern EQ expr . [ SEMI RBRACE EOF AND ]
+##
+## The known suffix of the stack is as follows:
+## complex_pattern EQ expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 62, spurious reduction of production expr -> simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE SEMI USCORE
+##
+## Ends in an error in state: 110.
+##
+## option(SEMI) -> SEMI . [ RBRACE EOF ]
+## seq_expr_body -> seq_expr_item SEMI . seq_expr_body [ RBRACE EOF ]
+##
+## The known suffix of the stack is as follows:
+## seq_expr_item SEMI
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE RPAREN
+##
+## Ends in an error in state: 112.
+##
+## expr -> expr . PLUS expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER ]
+## expr -> expr . MINUS expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER ]
+## expr -> expr . TIMES expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER ]
+## expr -> expr . DIV expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER ]
+## expr -> expr . MOD expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER ]
+## expr -> expr . EQ expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER ]
+## expr -> expr . NE expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER ]
+## expr -> expr . GT expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER ]
+## expr -> expr . LT expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER ]
+## expr -> expr . GE expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER ]
+## expr -> expr . LE expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER ]
+## expr -> expr . DAMPER expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER ]
+## expr -> expr . DPIPE expr [ TIMES SEMI RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER ]
+## seq_expr_item -> expr . [ SEMI RBRACE EOF ]
+##
+## The known suffix of the stack is as follows:
+## expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 62, spurious reduction of production expr -> simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LBRACE FALSE EOF
+##
+## Ends in an error in state: 114.
+##
+## simple_expr -> LBRACE seq_expr_body . RBRACE [ TRUE TIMES STRING SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LPAREN LE LBRACE INT ID GT GE FALSE EQ EOF ELSE DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LBRACE seq_expr_body
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 62, spurious reduction of production expr -> simple_expr
+## In state 112, spurious reduction of production seq_expr_item -> expr
+## In state 109, spurious reduction of production option(SEMI) ->
+## In state 113, spurious reduction of production seq_expr_body -> seq_expr_item option(SEMI)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LPAREN FALSE SEMI
+##
+## Ends in an error in state: 116.
+##
+## expr -> expr . PLUS expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER COLON ]
+## expr -> expr . MINUS expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER COLON ]
+## expr -> expr . TIMES expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER COLON ]
+## expr -> expr . DIV expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER COLON ]
+## expr -> expr . MOD expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER COLON ]
+## expr -> expr . EQ expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER COLON ]
+## expr -> expr . NE expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER COLON ]
+## expr -> expr . GT expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER COLON ]
+## expr -> expr . LT expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER COLON ]
+## expr -> expr . GE expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER COLON ]
+## expr -> expr . LE expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER COLON ]
+## expr -> expr . DAMPER expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER COLON ]
+## expr -> expr . DPIPE expr [ TIMES RPAREN PLUS NE MOD MINUS LT LE GT GE EQ DPIPE DIV DAMPER COLON ]
+## expr -> LPAREN expr . COLON type_expr RPAREN [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+## simple_expr -> LPAREN expr . RPAREN [ TRUE TIMES STRING SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LPAREN LE LBRACE INT ID GT GE FALSE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 62, spurious reduction of production expr -> simple_expr
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LPAREN FALSE COLON USCORE
+##
+## Ends in an error in state: 117.
+##
+## expr -> LPAREN expr COLON . type_expr RPAREN [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN expr COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LPAREN FALSE COLON ID EQ
+##
+## Ends in an error in state: 118.
+##
+## expr -> LPAREN expr COLON type_expr . RPAREN [ TIMES SEMI RPAREN RBRACE PLUS NE MOD MINUS LT LE GT GE EQ EOF DPIPE DIV DAMPER COLON AND ]
+##
+## The known suffix of the stack is as follows:
+## LPAREN expr COLON type_expr
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 16, spurious reduction of production primitive_type_expr_ -> ID
+## In state 21, spurious reduction of production type_expr -> primitive_type_expr_
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: FALSE RBRACE
+##
+## Ends in an error in state: 122.
+##
+## main -> seq_expr_body . EOF [ # ]
+##
+## The known suffix of the stack is as follows:
+## seq_expr_body
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 62, spurious reduction of production expr -> simple_expr
+## In state 112, spurious reduction of production seq_expr_item -> expr
+## In state 109, spurious reduction of production option(SEMI) ->
+## In state 113, spurious reduction of production seq_expr_body -> seq_expr_item option(SEMI)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>

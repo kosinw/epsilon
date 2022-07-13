@@ -52,6 +52,7 @@
 
 let main := 
   | ~ = terminated(seq_expr_body, EOF);                           < Program >
+  | EOF;                                                          { Invalid }
 
 (* PATTERNS *)
 let complex_pattern :=
@@ -123,7 +124,7 @@ let arrow_type_expr_ :=
   | x = primitive_type_expr; "->"; xs = arrow_type_expr;          { ArrowType (x, xs) }
 
 (** COMPLEX EXPRESSIONS **)
-let structure_item :=
+let seq_expr_item :=
   | mark(let_definition)
   | expr
 
@@ -186,8 +187,8 @@ let seq_expr ==
   | delimited("{", seq_expr_body, "}")
 
 let seq_expr_body :=
-  | x = structure_item; ";"?;                                     { x }
-  | x = structure_item; ";"; xs = seq_expr_body;                  { Location.mk $sloc (SequenceExpr (x, xs)) }
+  | x = seq_expr_item; ";"?;                                     { x }
+  | x = seq_expr_item; ";"; xs = seq_expr_body;                  { Location.mk $sloc (SequenceExpr (x, xs)) }
 
 (** UTILITIES **)
 let mark(X) ==

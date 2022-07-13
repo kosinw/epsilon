@@ -1,6 +1,6 @@
 <p align="center">
  <a href="https://kosinw.com" target="_blank" rel="noopener">
-  <img src="media/banner.png" />
+  <img src="https://user-images.githubusercontent.com/17646399/178648230-d1a94d96-8bf4-45dd-8606-12bbdb8854b8.png" />
  </a>
 </p>
 <h1 align="center">Epsilon</h1>
@@ -26,10 +26,12 @@ Epsilon inherits its syntax and semantics from the ML family of programming lang
    7. [Functions](#functions)
    8. [Data Structures](#data-structures)
    9. [Records](#records)
-3. [Examples](#examples)
-4. [Features](#features)
-5. [License](#license)
-6. [References](#references)
+3. [Installation](#installation)
+4. [Examples](#examples)
+5. [Building](#building)
+6. [Features](#features)
+7. [License](#license)
+8. [References](#references)
 
 # Overview
 
@@ -142,13 +144,19 @@ Records are product types which are useful for storing data in named fields. Rec
 | Mutable record fields  | `type v = { mutable c: string };` |
 | Mutable record updates | `y.c = "bravo";`                  |
 
----
+> TODO(kosinw): Add sections on pattern matching, variants, modules, and imperative programming
 
-> TODO(kosi): Add sections on pattern matching, variants, modules, and imperative programming
+# Installation
+
+> TODO(kosinw): Finish section on installation
 
 # Examples
 
 Examples programs written in Epsilon can be found under the `examples/` directory in this repository.
+
+# Building
+
+> TODO(kosinw): Finish section on compiling and building project
 
 # Features
 

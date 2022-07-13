@@ -7,10 +7,10 @@ let%expect_test "covers constant decimal expression tree" =
     └─ ConstExpr: 1 |}]
 
 let%expect_test "covers constant hexadecimal expression tree" =
-  print_syntax "0x41";
+  print_syntax "0x42";
   [%expect {|
     Program
-    └─ ConstExpr: 65 |}]
+    └─ ConstExpr: 66 |}]
 
 let%expect_test "covers constant boolean expression tree" =
   print_syntax "true";

@@ -5,7 +5,7 @@
    - Add documentation strings to every prime type (e.g. expr', const')
    - Move operator to string coversion into this module *)
 
-type t = Program of expr [@@unboxed] [@@deriving show]
+type t = Program of expr | Invalid [@@deriving show]
 
 and pattern' =
   | AnyPattern  (** The pattern [_]. *)
